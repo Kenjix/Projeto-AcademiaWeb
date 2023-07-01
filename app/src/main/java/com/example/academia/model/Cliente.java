@@ -12,19 +12,24 @@ import java.util.Date;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 60)
     private String nome;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 11)
     private String cpf;
 
     @Column(unique = true, nullable = false)
     private long matricula;
 
+    @Column(length = 12)
     private String telefone;
+
+    @Column(nullable = false, length = 11)
     private String celular;
+
+    @Column(nullable = false, length = 60)
     private String email;
 
     @Column(nullable = false)

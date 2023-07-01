@@ -12,10 +12,11 @@ import lombok.Setter;
 public class Exercicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
+
     @Column(nullable = false, length = 50)
     private String nome;
+
     @Column(length = 50)
     private String grupoMuscular;
-
 }
