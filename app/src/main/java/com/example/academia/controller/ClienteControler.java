@@ -18,14 +18,15 @@ public class ClienteControler {
     @GetMapping("/cadastrar")
     public String cadastrarCliente(Model model) {
         model.addAttribute("cliente",new Cliente());
+
         return "";
     }
 
     @GetMapping("/Cliente/{id}")
     public String findCliente(Model model, @PathVariable Long id) {
         Cliente cliente = dao.findById(Math.toIntExact(id)).get();
-
         model.addAttribute("cliente",cliente);
+
         return "";
     }
 
@@ -45,9 +46,9 @@ public class ClienteControler {
 
     @GetMapping("/listar")
     public String listarClientes(Model model) {
-
         List<Cliente> listCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("clientes", listCliente);
+
         return "";
     }
 

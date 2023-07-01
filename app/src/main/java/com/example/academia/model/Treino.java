@@ -2,9 +2,14 @@ package com.example.academia.model;
 
 import jakarta.persistence.*;
 import com.example.academia.model.Exercicio;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "treinos")
 public class Treino {
 

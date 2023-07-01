@@ -47,9 +47,9 @@ public class FuncionarioController {
 
     @GetMapping("/listar")
     public String listarFuncionarios(Model model) {
-
         List<Funcionario> listFuncionario = (List<Funcionario>) dao.findAll();
         model.addAttribute("funcionarios", listFuncionario);
+
         return "";
     }
 }
