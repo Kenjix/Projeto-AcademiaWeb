@@ -20,7 +20,7 @@ public class ClienteControler {
     @GetMapping("/cadastrar")
     public String cadastrarCliente(Model model) {
         model.addAttribute("cliente",new Cliente());
-        return "login";
+        return "formClienteCadastro";
     }
 
     @GetMapping("/Cliente/{id}")
