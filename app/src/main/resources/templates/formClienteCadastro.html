@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{template :: layout (~{:: body})}">
 <body>
+<section class="hero is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <h1 class="title has-text-centered">Formulário de Cadastro</h1>
+                    <form action="#" th:action="@{/pessoa/save}" th:object="${cliente}" method="post">
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" th:field="*{nome}" required placeholder="Nome">
+                                <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                                <input class="input" type="email" th:field="*{email}" required placeholder="Email">
+                                <span class="icon is-small is-left">
+                              <i class="fas fa-envelope"></i>
+                            </span>
+                            </p>
+                        </div>
 
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input class="input" type="text" th:field="*{celular}" required placeholder="Telefone"
+                                       data-inputmask="'mask': '(99) 99999-9999'">
+                                <span class="icon is-small is-left">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <div class="control has-text-centered">
+                                <button class="button is-link" type="submit">Enviar</button>
+                                <button class="button" type="reset">Resetar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
 </body>
 </html>
