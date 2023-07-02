@@ -2,7 +2,6 @@ package com.example.academia.controller;
 
 import com.example.academia.model.Cliente;
 import com.example.academia.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class ClienteControler {
     @GetMapping("/cadastrar")
     public String cadastrarCliente(Model model) {
         model.addAttribute("cliente",new Cliente());
-        return "formClienteCadastro";
+        return "login";
     }
 
     @GetMapping("/Cliente/{id}")
