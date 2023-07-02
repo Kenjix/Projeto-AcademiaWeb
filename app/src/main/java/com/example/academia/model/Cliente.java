@@ -19,7 +19,7 @@ public class Cliente  {
     @Column(nullable = false, length = 60)
     private String nome;
 
-    @Column(unique = true, nullable = false, length = 11)
+    @Column(unique = true, nullable = false, length = 15)
     private String cpf;
 
     @Column(unique = true, nullable = false)

@@ -29,14 +29,16 @@ public class ClienteControler {
         Cliente cliente = dao.findById(Math.toIntExact(id)).get();
         model.addAttribute("cliente",cliente);
 
-        return "";
+        return "AlterarCliente";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluirCliente(Model model, @PathVariable Long id) {
         dao.deleteById(Math.toIntExact(id));
 
-        return "";
+        List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
+        model.addAttribute("cliente", listaCliente);
+        return "ListagemClientes";
     }
 
     @PostMapping("/salvar")
@@ -44,16 +46,16 @@ public class ClienteControler {
         dao.save(cliente);
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("cliente", listaCliente);
-        return "hello";
+        return "ListagemClientes";
     }    
     
 
     @GetMapping("/listar")
     public String listarClientes(Model model) {
         List<Cliente> listCliente = (List<Cliente>) dao.findAll();
-        model.addAttribute("clientes", listCliente);
+        model.addAttribute("cliente", listCliente);
 
-        return "";
+        return "ListagemClientes";
     }
 
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{template :: layout (~{:: body})}">
+<body>
+<section class="hero is-dark is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-offset-2 is-8">
+          <h1 class="title has-text-centered">Lista de Clientes</h1>
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <thead>
+            <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Matrícula</th>
+              <th>Email</th>
+              <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cliente : ${clientes}">
+              <td th:text="${cliente.nome}"></td>
+              <td th:text="${cliente.cpf}"></td>
+              <td th:text="${cliente.matricula}"></td>
+              <td th:text="${cliente.email}"></td>
+              <td>
+                <a class="button is-small is-primary" th:href="@{/cliente/Cliente/{id}(id=${cliente.id})}">Alterar</a>
+                <a class="button is-small is-danger" th:href="@{/cliente/excluir/{id}(id=${cliente.id})}">Excluir</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
