@@ -42,11 +42,8 @@ public class ClienteControler {
     @PostMapping("/salvar")
     public String salvarCliente(@ModelAttribute Cliente cliente, Model model) {
         dao.save(cliente);
-        //salva no banco de dados o objeto do tipo Pessoa com as informacoes da pagina de cadastro
-
-        //Cria uma lista atualizada das pessodas cadastradas
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
-        model.addAttribute("clientes", listaCliente);
+        model.addAttribute("cliente", listaCliente);
         return "hello";
     }    
     

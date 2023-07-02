@@ -3,6 +3,7 @@ package com.example.academia.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -35,6 +36,7 @@ public class Cliente  {
 
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataNasc;
 
     @Column(nullable = false)
@@ -52,7 +54,7 @@ public class Cliente  {
     @Column(length = 80)
     private String objetivo;
 
-    @Column(columnDefinition = "BIT DEFAULT 1")
+    @Column
     private boolean ativo;
 
     @Lob
@@ -61,7 +63,13 @@ public class Cliente  {
     @Lob
     private String observacoes;
 
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+    @PrePersist
+    private void onCreate() {
+        updated = new Date();
+        dataInicio = new Date();
+        ativo = true;
+    }
 }
