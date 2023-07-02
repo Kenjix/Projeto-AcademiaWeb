@@ -19,7 +19,7 @@ public class ClienteControler {
     public String cadastrarCliente(Model model) {
         model.addAttribute("cliente",new Cliente());
 
-        return "";
+        return "home";
     }
 
     @GetMapping("/Cliente/{id}")
