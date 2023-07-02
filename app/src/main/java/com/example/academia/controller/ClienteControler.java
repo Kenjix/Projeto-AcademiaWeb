@@ -45,7 +45,7 @@ public class ClienteControler {
     public String salvarCliente(@ModelAttribute Cliente cliente, Model model) {
         dao.save(cliente);
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
-        model.addAttribute("cliente", listaCliente);
+        model.addAttribute("clientes", listaCliente);
         return "ListagemClientes";
     }    
     
@@ -53,7 +53,7 @@ public class ClienteControler {
     @GetMapping("/listar")
     public String listarClientes(Model model) {
         List<Cliente> listCliente = (List<Cliente>) dao.findAll();
-        model.addAttribute("cliente", listCliente);
+        model.addAttribute("clientes", listCliente);
 
         return "ListagemClientes";
     }
