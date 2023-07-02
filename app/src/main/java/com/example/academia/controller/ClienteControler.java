@@ -43,6 +43,14 @@ public class ClienteControler {
 
     @PostMapping("/salvar")
     public String salvarCliente(@ModelAttribute Cliente cliente, Model model) {
+        String telefone = cliente.getTelefone();
+        telefone = telefone.replaceAll("[\\s()-]", "");
+        cliente.setTelefone(telefone);
+
+        String celular = cliente.getCelular();
+        celular = celular.replaceAll("[\\s()-]", "");
+        cliente.setCelular(celular);
+        
         dao.save(cliente);
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("clientes", listaCliente);
