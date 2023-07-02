@@ -25,9 +25,9 @@ public class ClienteControler {
     }
 
     @GetMapping("/Cliente/{id}")
-    public String findCliente(Model model, @PathVariable Long id) {
-        Cliente cliente = dao.findById(Math.toIntExact(id)).get();
-        model.addAttribute("cliente",cliente);
+    public String findCliente(Model model, @PathVariable int id) {
+        Cliente cliente = dao.findById(id).orElse(null);
+        model.addAttribute("cliente", cliente);
 
         return "AlterarCliente";
     }
