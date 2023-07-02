@@ -3,13 +3,9 @@ package com.example.academia.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Getter
