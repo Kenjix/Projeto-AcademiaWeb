@@ -12,8 +12,11 @@ import java.util.List;
 @RequestMapping(path = "/cliente")
 public class ClienteControler {
 
-    @Autowired
-    private ClienteRepository dao;
+    private final ClienteRepository dao;
+
+    public ClienteControler(ClienteRepository dao) {
+        this.dao = dao;
+    }
 
     @GetMapping("/cadastrar")
     public String cadastrarCliente(Model model) {
@@ -36,12 +39,17 @@ public class ClienteControler {
         return "";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/salvar")
     public String salvarCliente(@ModelAttribute Cliente cliente, Model model) {
         dao.save(cliente);
+        //salva no banco de dados o objeto do tipo Pessoa com as informacoes da pagina de cadastro
 
-        return "";
-    }
+        //Cria uma lista atualizada das pessodas cadastradas
+        List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
+        model.addAttribute("clientes", listaCliente);
+        return "hello";
+    }    
+    
 
     @GetMapping("/listar")
     public String listarClientes(Model model) {

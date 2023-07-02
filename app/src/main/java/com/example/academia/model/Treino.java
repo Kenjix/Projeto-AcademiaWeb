@@ -13,7 +13,7 @@ import java.util.Date;
 public class Treino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(nullable = false)
     private int ordem;

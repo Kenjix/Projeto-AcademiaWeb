@@ -11,11 +11,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class Cliente  {
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(nullable = false, length = 60)
     private String nome;
@@ -45,7 +43,6 @@ public class Cliente  {
     @Column(nullable = false)
     private float altura;
 
-    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
