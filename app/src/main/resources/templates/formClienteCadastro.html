@@ -66,7 +66,7 @@
                             <div id="dados-1" style="display: none;">
                                 <div class="has-text-centered">
                                     <div>
-                                        <img class="imagem-preview rounded-circle" id="preview" th:src="@{/images/avatar_placeholder.png}" height="100" onclick="document.getElementById('foto').click()">
+                                        <img class="imagem-preview rounded-circle" id="preview" th:src="@{/images/avatar_placeholder.png}" height="100" width="100" onclick="document.getElementById('foto').click()">
                                         <div class="caption">Clique para anexar a foto</div>
                                     </div>
                                     <div class="mb-3">
@@ -86,7 +86,7 @@
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="iconnome"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Nome completo" aria-label="Username" aria-describedby="iconnome" required id="nome" name="nome" value="">
+                                        <input  type="text" class="form-control" placeholder="Nome completo" aria-label="Username" aria-describedby="iconnome" required id="nome" name="nome" maxlength="60" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
@@ -102,13 +102,13 @@
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="icontelefone"><i class="bi bi-telephone"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Telefone" aria-label="telefone" aria-describedby="icontelefone" data-inputmask="'mask': '(99) 9999-9999'" id="telefone" name="telefone" value="">
+                                        <input  type="text" class="form-control" placeholder="Telefone" aria-label="telefone" aria-describedby="icontelefone" id="telefone" name="telefone" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="iconcelular"><i class="bi bi-phone"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Celular" aria-label="celular" aria-describedby="iconcelular" data-inputmask="'mask': '(99) 99999-9999'" id="celular" name="celular" value="">
+                                        <input  type="text" class="form-control" placeholder="Celular" aria-label="celular" aria-describedby="iconcelular" id="celular" name="celular" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
@@ -186,12 +186,13 @@
         // Máscaras de input
         IMask(document.getElementById('telefone'), { mask: '(00) 0000-0000' });
         IMask(document.getElementById('celular'), { mask: '(00) 00000-0000' });
+        IMask(document.getElementById('cpf'), { mask: '000.000.000-00' });
 
         // Variáveis de controle de progresso
         currentStep = 1;
         maxSteps = 4;
 
-        // Função para atualizar os ícones e estilo de cada etapa do formulário
+        //funcao para atualizar os ícones e estilo de cada etapa do formulário
         function atualizarProgresso() {
             for (var i = 1; i <= maxSteps; i++) {
                 if (i == currentStep) {
@@ -256,7 +257,7 @@
         // Evento de clique no botão de voltar
         $('#btn-anterior').click(voltar);
 
-        // Inicialização do progresso
+        //inicialização do progresso
         atualizarProgresso();
     });
 </script>

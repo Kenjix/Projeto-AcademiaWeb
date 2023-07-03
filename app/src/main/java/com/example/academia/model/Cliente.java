@@ -22,7 +22,7 @@ public class Cliente  {
     @Column(nullable = false, length = 60)
     private String nome;
 
-    @Column(unique = true, nullable = false, length = 15)
+    @Column(unique = true, nullable = false, length = 11)
     private String cpf;
 
     @Column(unique = true, nullable = false, length = 10)
@@ -79,6 +79,6 @@ public class Cliente  {
 
     private String generateUniqueMatricula() {
         String uuid = UUID.randomUUID().toString().replace("-", "");
-        return uuid.substring(0, 10);
+        return uuid.substring(0, 10).toUpperCase();
     }
 }

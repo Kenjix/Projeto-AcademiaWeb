@@ -67,7 +67,9 @@ public class ClienteControler {
         String celular = cliente.getCelular();
         celular = celular.replaceAll("[\\s()-]", "");
         cliente.setCelular(celular);
-
+        String cpf = cliente.getCpf();
+        cpf = cpf.replaceAll("\\D", "");
+        cliente.setCpf(cpf);
         try {
             //le os bytes da imagem do MultipartFile
             byte[] fotoBytes = fotoFile.getBytes();
