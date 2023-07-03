@@ -54,8 +54,25 @@ public class ClienteControler {
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("clientes", listaCliente);
         return "ListagemClientes";
-    }    
-    
+    }
+
+    @PostMapping ("/atualizar/{id}")
+    public String atualizarCliente(@PathVariable int id, @ModelAttribute Cliente cliente, Model model) {
+        // Use o ID recebido para buscar o cliente existente no banco de dados e atualizá-lo
+        Cliente clienteExistente = dao.findById(id).orElse(null);
+        if (clienteExistente != null) {
+            clienteExistente.setNome(cliente.getNome());
+            clienteExistente.setCpf(cliente.getCpf());
+            // Atualize os outros campos necessários
+            dao.save(clienteExistente);
+
+            List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
+            model.addAttribute("clientes", listaCliente);
+        }
+
+        return "ListagemClientes";
+    }
+
 
     @GetMapping("/listar")
     public String listarClientes(Model model) {
