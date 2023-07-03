@@ -2,10 +2,21 @@ package com.example.academia.controller;
 
 import com.example.academia.model.Cliente;
 import com.example.academia.repository.ClienteRepository;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.validation.Valid;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 @Controller
 @RequestMapping(path = "/cliente")
@@ -41,7 +52,10 @@ public class ClienteControler {
     }
 
     @PostMapping("/salvar")
-    public String salvarCliente(@ModelAttribute Cliente cliente, Model model) {
+    public String salvarCliente(@ModelAttribute("cliente") @Valid Cliente cliente,
+                                BindingResult bindingResult,
+                                @RequestParam("foto") MultipartFile fotoFile,
+                                Model model) throws IOException {
         String telefone = cliente.getTelefone();
         telefone = telefone.replaceAll("[\\s()-]", "");
         cliente.setTelefone(telefone);
@@ -49,7 +63,42 @@ public class ClienteControler {
         String celular = cliente.getCelular();
         celular = celular.replaceAll("[\\s()-]", "");
         cliente.setCelular(celular);
-        
+
+        try {
+            //le os bytes da imagem do MultipartFile
+            byte[] fotoBytes = fotoFile.getBytes();
+            //carreganga a imagem em um objeto BufferedImage
+            BufferedImage imagemOriginal = ImageIO.read(new ByteArrayInputStream(fotoBytes));
+            //definine as dimensoes desejadas para o redimensionamento
+            int larguraDesejada = 200;
+            int alturaDesejada = 200;
+            //calcula as dimensoes proporcionais para manter a proporção
+            int larguraOriginal = imagemOriginal.getWidth();
+            int alturaOriginal = imagemOriginal.getHeight();
+            int novaLargura, novaAltura;
+            if (larguraOriginal > alturaOriginal) {
+                novaLargura = larguraDesejada;
+                novaAltura = (int) (alturaOriginal / (larguraOriginal / (double) larguraDesejada));
+            } else {
+                novaAltura = alturaDesejada;
+                novaLargura = (int) (larguraOriginal / (alturaOriginal / (double) alturaDesejada));
+            }
+            //cria uma nova imagem redimensionada
+            BufferedImage imagemRedimensionada = new BufferedImage(novaLargura, novaAltura, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g = imagemRedimensionada.createGraphics();
+            g.drawImage(imagemOriginal, 0, 0, novaLargura, novaAltura, null);
+            g.dispose();
+            //converte a imagem redimensionada para bytes
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(imagemRedimensionada, "jpg", baos);
+            byte[] fotoRedimensionadaBytes = baos.toByteArray();
+            //converte para Base64
+            String base64 = Base64.getEncoder().encodeToString(fotoRedimensionadaBytes);
+            //armazena no objeto cliente
+            cliente.setFoto(base64);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         dao.save(cliente);
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("clientes", listaCliente);

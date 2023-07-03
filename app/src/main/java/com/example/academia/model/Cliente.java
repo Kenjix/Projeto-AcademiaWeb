@@ -60,10 +60,8 @@ public class Cliente  {
     @Column
     private boolean ativo;
 
-    @Lob
-    private byte[] foto;
-
-
+    @Column(columnDefinition = "TEXT")
+    private String foto;
 
     @Lob
     private String observacoes;
