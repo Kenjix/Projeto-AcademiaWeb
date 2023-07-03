@@ -39,7 +39,7 @@
   <div class="row justify-content-center align-items-center h-100">
     <div class="col-md-6">
       <div class="row p-5 g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <form action="#" th:action="@{/cliente/atualizar/{id}(id=*{id})}" th:object="${cliente}" method="post">
+        <form action="#" th:action="@{/cliente/atualizar/{id}(id=${cliente.id})}" th:object="${cliente}" method="post">
             <h5 class="text-center">Dados Pessoais</h5>
             <hr class="border-bottom">
             <div class="row">
@@ -59,7 +59,7 @@
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-                      <input id="cpf" class="form-control" th:field="*{cpf}" disabled>
+                      <input id="cpf" class="form-control" th:field="*{cpf}" readonly>
                     </div>
                   </div>
                   <div class="col-md-6">
