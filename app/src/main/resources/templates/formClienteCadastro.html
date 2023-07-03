@@ -9,11 +9,16 @@
                 <div class="column is-offset-4 is-4">
                     <div class="form-container">
                         <h1 class="title has-text-centered">Formulário de Cadastro</h1>
-                        <form action="#" th:action="@{/cliente/salvar}" th:object="${cliente}" method="post">
-
-
-
-
+                        <form action="#" th:action="@{/cliente/salvar}" th:object="${cliente}" method="post" enctype="multipart/form-data">
+                            <div class="has-text-centered">
+                                <div>
+                                    <img class="imagem-preview " id="preview" th:src="@{/images/avatar_placeholder.png}" height="200" onclick="document.getElementById('foto').click()">
+                                    <div class="caption">Clique para anexar a foto</div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="file" id="foto" name="foto" accept=".png, .jpg" multiple style="display: none;">
+                                </div>
+                            </div>
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
                                     <input class="input" type="text" th:field="*{nome}" required placeholder="Nome">
@@ -24,18 +29,9 @@
                             </div>
                             <div class="field">
                                 <p class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" th:field="*{cpf}" required placeholder="CPF">
+                                    <input class="input" type="text" th:field="*{cpf}" required placeholder="CPF" data-inputmask="'mask': '999.999.999-99'">
                                     <span class="icon is-small is-left">
                                     <i class="fas fa-id-card"></i>
-                                </span>
-                                </p>
-                            </div>
-                            <div class="field">
-                                <p class="control has-icons-left has-icons-right">
-                                    <input class="input" type="number" th:field="*{matricula}" required
-                                           placeholder="Matrícula">
-                                    <span class="icon is-small is-left">
-                                    <i class="fas fa-graduation-cap"></i>
                                 </span>
                                 </p>
                             </div>
@@ -120,8 +116,21 @@
     </div>
 </section>
 
+<script th:inline="javascript">
+    function exibirImagemSelecionada(event) {
+        var input = event.target;
+        var reader = new FileReader();
 
+        reader.onload = function(e) {
+            var imagem = document.getElementById('preview');
+            imagem.src = e.target.result;
+        };
 
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    document.getElementById('foto').addEventListener('change', exibirImagemSelecionada);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.6/dist/inputmask.min.js"></script>
 </body>
 </html>

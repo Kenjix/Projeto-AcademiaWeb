@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -22,8 +25,8 @@ public class Cliente  {
     @Column(unique = true, nullable = false, length = 15)
     private String cpf;
 
-    @Column(unique = true, nullable = false)
-    private long matricula;
+    @Column(unique = true, nullable = false, length = 10)
+    private String matricula;
 
     @Column(length = 12)
     private String telefone;
@@ -60,6 +63,8 @@ public class Cliente  {
     @Lob
     private byte[] foto;
 
+
+
     @Lob
     private String observacoes;
 
@@ -71,5 +76,11 @@ public class Cliente  {
         updated = new Date();
         dataInicio = new Date();
         ativo = true;
+        matricula = generateUniqueMatricula();
+    }
+
+    private String generateUniqueMatricula() {
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        return uuid.substring(0, 10);
     }
 }
