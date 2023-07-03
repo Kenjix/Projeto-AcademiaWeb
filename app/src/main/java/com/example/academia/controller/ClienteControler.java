@@ -28,29 +28,33 @@ public class ClienteControler {
         this.dao = dao;
     }
 
+    //rota para o preenchimento do cadastro (formulário)
     @GetMapping("/cadastrar")
     public String cadastrarCliente(Model model) {
         model.addAttribute("cliente",new Cliente());
         return "formClienteCadastro";
     }
 
+    //rota para pegar cliente especifico (detalhes)
     @GetMapping("/Cliente/{id}")
     public String findCliente(Model model, @PathVariable int id) {
         Cliente cliente = dao.findById(id).orElse(null);
         model.addAttribute("cliente", cliente);
 
-        return "AlterarCliente";
+        return "editCliente";
     }
 
+    //rota para excluir cliente
     @GetMapping("/excluir/{id}")
     public String excluirCliente(Model model, @PathVariable Long id) {
         dao.deleteById(Math.toIntExact(id));
 
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("cliente", listaCliente);
-        return "ListagemClientes";
+        return "redirect:/cliente/listar";
     }
 
+    //rota para salvar os dados do cliente preenchidos do form Cadastro
     @PostMapping("/salvar")
     public String salvarCliente(@ModelAttribute("cliente") @Valid Cliente cliente,
                                 BindingResult bindingResult,
@@ -105,6 +109,7 @@ public class ClienteControler {
         return "ListagemClientes";
     }
 
+    //rota para atualizar cliente
     @PostMapping ("/atualizar/{id}")
     public String atualizarCliente(@PathVariable int id, @ModelAttribute Cliente cliente, Model model) {
         // Use o ID recebido para buscar o cliente existente no banco de dados e atualizá-lo
@@ -112,17 +117,37 @@ public class ClienteControler {
         if (clienteExistente != null) {
             clienteExistente.setNome(cliente.getNome());
             clienteExistente.setCpf(cliente.getCpf());
-            // Atualize os outros campos necessários
+            clienteExistente.setDataNasc(cliente.getDataNasc());
+            clienteExistente.setEmail(cliente.getEmail());
+            clienteExistente.setTelefone(cliente.getTelefone());
+            clienteExistente.setCelular(cliente.getCelular());
+            clienteExistente.setPeso(cliente.getPeso());
+            clienteExistente.setAltura(cliente.getAltura());
+            clienteExistente.setObjetivo(cliente.getObjetivo());
+            clienteExistente.setObservacoes(cliente.getObservacoes());
             dao.save(clienteExistente);
 
             List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
             model.addAttribute("clientes", listaCliente);
         }
 
-        return "ListagemClientes";
+        return "redirect:/cliente/listar";
     }
 
+    //rota para ver ficha / detalhes do cliente
+    @GetMapping("/ficha/{id}")
+    public String exibirFichaCliente(@PathVariable int id, Model model) {
+        // Use o ID recebido para buscar o cliente no banco de dados
+        Cliente cliente = dao.findById(id).orElse(null);
 
+        if (cliente != null) {
+            model.addAttribute("cliente", cliente);
+        }
+
+        return "fichaCliente";
+    }
+
+    //rota para listar todos os clientes
     @GetMapping("/listar")
     public String listarClientes(Model model) {
         List<Cliente> listCliente = (List<Cliente>) dao.findAll();
