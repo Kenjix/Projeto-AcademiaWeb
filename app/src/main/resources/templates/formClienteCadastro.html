@@ -11,6 +11,11 @@
         body {
             background-color: #f8f9fa;
         }
+        .fit-img{
+            width:100px;
+            height:100px;
+            object-fit:cover
+        }
     </style>
 </head>
 
@@ -66,7 +71,7 @@
                             <div id="dados-1" style="display: none;">
                                 <div class="has-text-centered">
                                     <div>
-                                        <img class="imagem-preview rounded-circle" id="preview" th:src="@{/images/avatar_placeholder.png}" height="100" width="100" onclick="document.getElementById('foto').click()">
+                                        <img class="rounded-circle fit-img" id="preview" th:src="@{/images/avatar_placeholder.png}" height="100" width="100" onclick="document.getElementById('foto').click()">
                                         <div class="caption">Clique para anexar a foto</div>
                                     </div>
                                     <div class="mb-3">

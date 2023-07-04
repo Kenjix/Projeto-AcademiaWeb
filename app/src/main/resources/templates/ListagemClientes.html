@@ -11,6 +11,11 @@
     body {
       background-color: #f8f9fa;
     }
+    .fit-img{
+      width:64px;
+      height:64px;
+      object-fit:cover
+    }
   </style>
 </head>
 <body>
@@ -57,7 +62,7 @@
         <tbody>
         <tr th:each="cliente : ${clientes}">
           <td>
-            <img class="rounded-circle" th:src="'data:image/jpeg;base64,' + ${cliente.foto}" alt="Foto do Cliente" width="64">
+            <img class="rounded-circle fit-img" th:src="'data:image/jpeg;base64,' + ${cliente.foto}" alt="Foto do Cliente" height="64" width="64">
           </td>
           <td class="align-middle" th:text="${cliente.nome}"></td>
           <td class="align-middle" th:text="${cliente.cpf}"></td>
