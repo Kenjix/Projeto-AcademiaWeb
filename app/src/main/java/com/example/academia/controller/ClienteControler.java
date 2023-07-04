@@ -76,8 +76,8 @@ public class ClienteControler {
             //carreganga a imagem em um objeto BufferedImage
             BufferedImage imagemOriginal = ImageIO.read(new ByteArrayInputStream(fotoBytes));
             //definine as dimensoes desejadas para o redimensionamento
-            int larguraDesejada = 200;
-            int alturaDesejada = 200;
+            int larguraDesejada = 800;
+            int alturaDesejada = 800;
             //calcula as dimensoes proporcionais para manter a proporção
             int larguraOriginal = imagemOriginal.getWidth();
             int alturaOriginal = imagemOriginal.getHeight();

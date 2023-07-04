@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -11,10 +10,11 @@
         body {
             background-color: #f8f9fa;
         }
-        .fit-img{
-            width:100px;
-            height:100px;
-            object-fit:cover
+
+        .fit-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover
         }
     </style>
 </head>
@@ -27,7 +27,9 @@
                 <div class="text-center col p-4 d-flex flex-column position-static">
                     <!-- Icone e Nome do App -->
                     <div class="text-start">
-                        <strong class="text-left d-inline-block mb-2 text-primary-emphasis"><img src="/images/icone.png" alt="icone" height="16"> GymGenius</strong>
+                        <strong class="text-left d-inline-block mb-2 text-primary-emphasis"><img src="/images/icone.png"
+                                                                                                 alt="icone"
+                                                                                                 height="32"> GymGenius</strong>
                     </div>
                     <div class="container">
                         <h4 class="mb-0 mt-2">Bem-vindo</h4>
@@ -66,16 +68,20 @@
 
                             </ul>
                         </div>
-                        <form id="formulario" action="#" th:action="@{/cliente/salvar}" th:object="${cliente}" method="post" enctype="multipart/form-data">
+                        <form id="formulario" action="#" th:action="@{/cliente/salvar}" th:object="${cliente}"
+                              method="post" enctype="multipart/form-data">
                             <!-- Parte 1: Foto -->
                             <div id="dados-1" style="display: none;">
                                 <div class="has-text-centered">
                                     <div>
-                                        <img class="rounded-circle fit-img" id="preview" th:src="@{/images/avatar_placeholder.png}" height="100" width="100" onclick="document.getElementById('foto').click()">
+                                        <img class="rounded-circle fit-img" id="preview"
+                                             th:src="@{/images/avatar_placeholder.png}"
+                                             onclick="document.getElementById('foto').click()">
                                         <div class="caption">Clique para anexar a foto</div>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="file" id="foto" name="foto" accept=".png, .jpg" multiple style="display: none;">
+                                        <input type="file" id="foto" name="foto" accept=".png, .jpg" multiple
+                                               style="display: none;">
                                     </div>
                                 </div>
                             </div>
@@ -84,20 +90,28 @@
                                 <div class="field">
                                     <p class="small my-0 mx-0 text-start">Data de nascimento</p>
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconData"><i class="bi bi-calendar3"></i></span>
-                                        <input type="date" class="form-control" placeholder="Data de nascimento" aria-label="Data de nascimento" aria-describedby="iconData" required id="dataNasc" name="dataNasc" value="">
+                                        <span class="input-group-text" id="iconData"><i
+                                                class="bi bi-calendar3"></i></span>
+                                        <input type="date" class="form-control" placeholder="Data de nascimento"
+                                               aria-label="Data de nascimento" aria-describedby="iconData" required
+                                               id="dataNasc" name="dataNasc" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconnome"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Nome completo" aria-label="Username" aria-describedby="iconnome" required id="nome" name="nome" maxlength="60" value="">
+                                        <span class="input-group-text" id="iconnome"><i
+                                                class="bi bi-person-lines-fill"></i></span>
+                                        <input type="text" class="form-control" placeholder="Nome completo"
+                                               aria-label="Username" aria-describedby="iconnome" required id="nome"
+                                               name="nome" maxlength="60" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconcpf"><i class="bi bi-file-text"></i></span>
-                                        <input  type="text" class="form-control" placeholder="CPF" aria-label="cpf" aria-describedby="iconcpf" required id="cpf" name="cpf" value="">
+                                        <span class="input-group-text" id="iconcpf"><i
+                                                class="bi bi-file-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="CPF" aria-label="cpf"
+                                               aria-describedby="iconcpf" required id="cpf" name="cpf" value="">
                                     </div>
                                 </div>
                             </div>
@@ -107,19 +121,25 @@
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="icontelefone"><i class="bi bi-telephone"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Telefone" aria-label="telefone" aria-describedby="icontelefone" id="telefone" name="telefone" value="">
+                                        <input type="text" class="form-control" placeholder="Telefone"
+                                               aria-label="telefone" aria-describedby="icontelefone" id="telefone"
+                                               name="telefone" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconcelular"><i class="bi bi-phone"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Celular" aria-label="celular" aria-describedby="iconcelular" id="celular" name="celular" value="">
+                                        <span class="input-group-text" id="iconcelular"><i
+                                                class="bi bi-phone"></i></span>
+                                        <input type="text" class="form-control" placeholder="Celular"
+                                               aria-label="celular" aria-describedby="iconcelular" id="celular"
+                                               name="celular" value="">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="iconemail"><i class="bi bi-envelope-at"></i></span>
-                                        <input  type="text" class="form-control" placeholder="Email" aria-label="email" aria-describedby="iconemail" required id="email" name="email" value="">
+                                        <input type="text" class="form-control" placeholder="Email" aria-label="email"
+                                               aria-describedby="iconemail" required id="email" name="email" value="">
                                     </div>
                                 </div>
                             </div>
@@ -128,35 +148,44 @@
                                 <div class="field mt-2">
                                     <p class="small my-0 mx-0 text-start">Peso</p>
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconpeso"><i class="bi bi-universal-access"></i></span>
-                                        <input type="number" class="form-control" placeholder="Peso" aria-label="Peso" aria-describedby="iconpeso" required id="peso" name="peso" value="0.0">
+                                        <span class="input-group-text" id="iconpeso"><i
+                                                class="bi bi-universal-access"></i></span>
+                                        <input type="number" class="form-control" placeholder="Peso" aria-label="Peso"
+                                               aria-describedby="iconpeso" required id="peso" name="peso" value="0.0">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <p class="small my-0 mx-0 text-start">Altura</p>
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="iconaltura"><i class="bi bi-sort-up-alt"></i></span>
-                                        <input type="number" class="form-control" placeholder="Altura" aria-label="Altura" aria-describedby="iconaltura" required id="altura" name="altura" value="0.0">
+                                        <input type="number" class="form-control" placeholder="Altura"
+                                               aria-label="Altura" aria-describedby="iconaltura" required id="altura"
+                                               name="altura" value="0.0">
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text"><i class="bi bi-file-earmark-text"></i></span>
-                                        <textarea class="form-control" aria-label="objetivo" placeholder="Objetivo" id="objetivo" name="objetivo"></textarea>
+                                        <textarea class="form-control" aria-label="objetivo" placeholder="Objetivo"
+                                                  id="objetivo" name="objetivo"></textarea>
                                     </div>
                                 </div>
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text"><i class="bi bi-file-earmark-text"></i></span>
-                                        <textarea class="form-control" placeholder="Observações relevantes para você" id="observacoes" name="observacoes"></textarea>
+                                        <textarea class="form-control" placeholder="Observações relevantes para você"
+                                                  id="observacoes" name="observacoes"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="field mt-4">
                                 <div class="control has-text-centered">
-                                    <button id="btn-anterior" class="btn btn-outline-dark mt-3" type="button">Voltar</button>
+                                    <button id="btn-anterior" class="btn btn-outline-dark mt-3" type="button">Voltar
+                                    </button>
                                     <button id="btn-proximo" class="btn btn-dark mt-3" type="button">Próximo</button>
-                                    <button id="btn-enviar" class="btn btn-success mt-3" type="submit" style="display: none;">Concluir</button>
+                                    <button id="btn-enviar" class="btn btn-success mt-3" type="submit"
+                                            style="display: none;">Concluir
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -179,7 +208,7 @@
             var input = event.target;
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 var imagem = document.getElementById('preview');
                 imagem.src = e.target.result;
             };
@@ -189,9 +218,9 @@
 
         document.getElementById('foto').addEventListener('change', exibirImagemSelecionada);
         // Máscaras de input
-        IMask(document.getElementById('telefone'), { mask: '(00) 0000-0000' });
-        IMask(document.getElementById('celular'), { mask: '(00) 00000-0000' });
-        IMask(document.getElementById('cpf'), { mask: '000.000.000-00' });
+        IMask(document.getElementById('telefone'), {mask: '(00) 0000-0000'});
+        IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
+        IMask(document.getElementById('cpf'), {mask: '000.000.000-00'});
 
         // Variáveis de controle de progresso
         currentStep = 1;
