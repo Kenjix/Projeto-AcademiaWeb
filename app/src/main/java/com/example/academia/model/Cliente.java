@@ -17,7 +17,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 50)
     private String nome;
 
     @Column(unique = true, nullable = false, length = 11)
@@ -32,7 +32,7 @@ public class Cliente {
     @Column(nullable = false, length = 11)
     private String celular;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 50)
     private String email;
 
     @Column(nullable = false)

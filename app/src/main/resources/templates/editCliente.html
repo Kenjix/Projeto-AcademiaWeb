@@ -34,7 +34,6 @@
                         <a class="nav-link" href="http://localhost:8080/cliente/listar"><strong>LISTAR</strong></a>
                     </li>
                 </ul>
-
             </div>
         </div>
     </nav>
@@ -60,7 +59,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="nome" class="form-label"><strong>Nome:</strong></label>
-                                <input id="nome" class="form-control" th:field="*{nome}">
+                                <input id="nome" class="form-control" th:field="*{nome}" maxlength="50">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -84,7 +83,7 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="email" class="form-label"><strong>Email:</strong></label>
-                            <input id="email" class="form-control" th:field="*{email}">
+                            <input id="email" class="form-control" th:field="*{email}" maxlength="50">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -142,12 +141,14 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/imask"></script>
 <script>
-    // Máscaras de input
-    IMask(document.getElementById('telefone'), {mask: '(00) 0000-0000'});
-    IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
-    IMask(document.getElementById('cpf'), {mask: '000.000.000-00'});
-    IMask(document.getElementById('altura'), {mask: '0.00'});
-    IMask(document.getElementById('peso'), {mask: '000.00'});
+    $(document).ready(function () {
+        // Máscaras de input
+        IMask(document.getElementById('telefone'), {mask: '(00) 0000-0000'});
+        IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
+        IMask(document.getElementById('cpf'), {mask: '000.000.000-00'});
+        IMask(document.getElementById('altura'), {mask: '0.00'});
+        IMask(document.getElementById('peso'), {mask: '000.00'});
+    });
 </script>
 </body>
 </html>
