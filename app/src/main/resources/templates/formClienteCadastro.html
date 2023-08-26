@@ -31,72 +31,14 @@
                                                                                                  alt="icone"
                                                                                                  height="32"> GymGenius</strong>
                     </div>
-                    <div class="container">
+                    <div class="container-fluid">
                         <h4 class="mb-0 mt-2">Bem-vindo</h4>
                         <div class="text-body-secondary">Por favor, insira seus dados para o cadastro</div>
-                        <div class="mb-5 mt-5 small">
-                            <!-- Progresso do formulário -->
-                            <ul class="nav nav-pills justify-content-center">
-                                <li class="nav-item">
-                                    <a class="nav-link passo disabled" href="#">
-                                        <i class="bi bi-camera-fill"></i>
-                                        <div class="step-number small">Passo 1</div>
-                                        <div class="step-label small">Foto</div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link passo disabled" href="#">
-                                        <i class="bi bi-person-vcard-fill"></i>
-                                        <div class="step-number small">Passo 2</div>
-                                        <div class="step-label small">Dados</div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link passo disabled" href="#">
-                                        <i class="bi bi-telephone-fill"></i>
-                                        <div class="step-number small">Passo 3</div>
-                                        <div class="step-label small">Contato</div>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link passo disabled" href="#">
-                                        <i class="bi bi-rulers"></i>
-                                        <div class="step-number small">Passo 4</div>
-                                        <div class="step-label small">Medidas</div>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
                         <form id="formulario" action="#" th:action="@{/cliente/salvar}" th:object="${cliente}"
                               method="post" enctype="multipart/form-data">
-                            <!-- Parte 1: Foto -->
-                            <div id="dados-1" style="display: none;">
-                                <div class="has-text-centered">
-                                    <div>
-                                        <img class="rounded-circle fit-img" id="preview"
-                                             th:src="@{/images/avatar_placeholder.png}"
-                                             onclick="document.getElementById('foto').click()">
-                                        <div class="caption">Clique para anexar a foto</div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input type="file" id="foto" name="foto" accept=".png, .jpg" multiple
-                                               style="display: none;">
-                                    </div>
-                                </div>
-                            </div>
                             <!-- Parte 2: Dados Pessoais -->
                             <div id="dados-2">
-                                <div class="field">
-                                    <p class="small my-0 mx-0 text-start">Data de nascimento</p>
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconData"><i
-                                                class="bi bi-calendar3"></i></span>
-                                        <input type="date" class="form-control" placeholder="Data de nascimento"
-                                               aria-label="Data de nascimento" aria-describedby="iconData" required
-                                               id="dataNasc" name="dataNasc" value="">
-                                    </div>
-                                </div>
+<!--                                NOME COMPLETO-->
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="iconnome"><i
@@ -106,26 +48,15 @@
                                                name="nome" maxlength="50" value="">
                                     </div>
                                 </div>
+<!--                                EMAIL-->
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconcpf"><i
-                                                class="bi bi-file-text"></i></span>
-                                        <input type="text" class="form-control" placeholder="CPF" aria-label="cpf"
-                                               aria-describedby="iconcpf" required id="cpf" name="cpf" value="">
+                                        <span class="input-group-text" id="iconemail"><i class="bi bi-envelope-at"></i></span>
+                                        <input type="text" class="form-control" placeholder="Email" aria-label="email"
+                                               aria-describedby="iconemail" required id="email" name="email" value="" maxlength="50">
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Parte 2: Contato -->
-                            <div id="dados-3" style="display: none;">
-                                <p class="my-0 mx-0 text-start">Dados de contato</p>
-                                <div class="field mt-2">
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="icontelefone"><i class="bi bi-telephone"></i></span>
-                                        <input type="text" class="form-control" placeholder="Telefone"
-                                               aria-label="telefone" aria-describedby="icontelefone" id="telefone"
-                                               name="telefone" value="">
-                                    </div>
-                                </div>
+<!--                                CELULAR-->
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text" id="iconcelular"><i
@@ -135,56 +66,66 @@
                                                name="celular" value="">
                                     </div>
                                 </div>
+<!--                                DATA DE NASCIMENTO-->
+                                <div class="field mt-2">
+<!--                                    <p class="small my-0 mx-0 text-start">Data de nascimento</p>-->
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="iconData">Data de nascimento</span>
+                                        <input type="date" class="form-control" placeholder="Data de nascimento"
+                                               aria-label="Data de nascimento" aria-describedby="iconData" required
+                                               id="dataNasc" name="dataNasc" value="">
+                                    </div>
+                                </div>
+<!--                                SENHA-->
                                 <div class="field mt-2">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconemail"><i class="bi bi-envelope-at"></i></span>
-                                        <input type="text" class="form-control" placeholder="Email" aria-label="email"
-                                               aria-describedby="iconemail" required id="email" name="email" value="" maxlength="50">
+                                        <span class="input-group-text" id="iconPassword"><i
+                                                class="bi bi-key"></i></span>
+                                        <input type="password" class="form-control" placeholder="Senha"
+                                               aria-label="Senha" aria-describedby="iconPassword" required
+                                               id="password" name="password" value="">
+                                    </div>
+                                    <small id="passwordHelpBlock" class="form-text text-muted align-items-start">
+                                        Sua senha deve ter entre 8 e 20 caracteres.
+                                    </small>
+                                </div>
+<!--                                CONFIRMA SENHA-->
+                                <div class="field mt-2">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="iconPassword2"><i
+                                                class="bi bi-check-circle"></i></span>
+                                        <input type="password" class="form-control" placeholder="Confirme sua Senha"
+                                               aria-label="ConfirmaSenha" aria-describedby="iconPassword2" required
+                                               id="passwordConfirm" name="passwordConfirm" value="">
                                     </div>
                                 </div>
                             </div>
-                            <!-- Parte 3: Medidas -->
-                            <div id="dados-4" style="display: none;">
-                                <div class="field mt-2">
-                                    <p class="small my-0 mx-0 text-start">Peso</p>
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconpeso"><i
-                                                class="bi bi-universal-access"></i></span>
-                                        <input type="number" class="form-control" placeholder="Peso" aria-label="Peso"
-                                               aria-describedby="iconpeso" id="peso" name="peso" step="0.01">
-                                    </div>
-                                </div>
-                                <div class="field mt-2">
-                                    <p class="small my-0 mx-0 text-start">Altura</p>
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text" id="iconaltura"><i class="bi bi-sort-up-alt"></i></span>
-                                        <input type="number" class="form-control" placeholder="Altura"
-                                               aria-label="Altura" aria-describedby="iconaltura" required id="altura"
-                                               name="altura" step="0.01">
-                                    </div>
-                                </div>
-                                <div class="field mt-2">
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text"><i class="bi bi-file-earmark-text"></i></span>
-                                        <textarea class="form-control" aria-label="objetivo" placeholder="Objetivo"
-                                                  id="objetivo" name="objetivo"></textarea>
-                                    </div>
-                                </div>
-                                <div class="field mt-2">
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text"><i class="bi bi-file-earmark-text"></i></span>
-                                        <textarea class="form-control" placeholder="Observações relevantes para você"
-                                                  id="observacoes" name="observacoes"></textarea>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="field mt-2">-->
+<!--                                <div class="input-group flex-nowrap">-->
+<!--                                    <span class="input-group-text" id="iconcpf"><i-->
+<!--                                            class="bi bi-file-text"></i></span>-->
+<!--                                    <input type="text" class="form-control" placeholder="CPF" aria-label="cpf"-->
+<!--                                           aria-describedby="iconcpf" required id="cpf" name="cpf" value="">-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <!-- Parte 2: Contato -->
+<!--                            <div id="dados-3" style="display: none;">-->
+<!--                                <p class="my-0 mx-0 text-start">Dados de contato</p>-->
+<!--                                <div class="field mt-2">-->
+<!--                                    <div class="input-group flex-nowrap">-->
+<!--                                        <span class="input-group-text" id="icontelefone"><i class="bi bi-telephone"></i></span>-->
+<!--                                        <input type="text" class="form-control" placeholder="Telefone"-->
+<!--                                               aria-label="telefone" aria-describedby="icontelefone" id="telefone"-->
+<!--                                               name="telefone" value="">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
+<!--                            </div>-->
                             <div class="field mt-4">
                                 <div class="control has-text-centered">
-                                    <button id="btn-anterior" class="btn btn-outline-dark mt-3" type="button">Voltar
-                                    </button>
-                                    <button id="btn-proximo" class="btn btn-dark mt-3" type="button">Próximo</button>
-                                    <button id="btn-enviar" class="btn btn-success mt-3" type="submit"
-                                            style="display: none;">Concluir
+                                    <button id="btn-enviar" class="btn btn-success mt-3" type="submit">
+                                        Concluir
                                     </button>
                                 </div>
                             </div>
@@ -203,99 +144,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/imask"></script>
 <script>
-    $(document).ready(function () {
-        function exibirImagemSelecionada(event) {
-            var input = event.target;
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                var imagem = document.getElementById('preview');
-                imagem.src = e.target.result;
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-
-        document.getElementById('foto').addEventListener('change', exibirImagemSelecionada);
-        //mascaras de input
-        IMask(document.getElementById('telefone'), {mask: '(00) 0000-0000'});
-        IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
-        IMask(document.getElementById('cpf'), {mask: '000.000.000-00'});
-        IMask(document.getElementById('altura'), {mask: '0.00'});
-        IMask(document.getElementById('peso'), {mask: '000.00'});
-
-        //variaveis de controle de progresso
-        currentStep = 1;
-        maxSteps = 4;
-
-        //funcao para atualizar os ícones e estilo de cada etapa do formulario
-        function atualizarProgresso() {
-            for (var i = 1; i <= maxSteps; i++) {
-                if (i == currentStep) {
-                    $('#dados-' + i).show();
-                    $('.passo:eq(' + (i - 1) + ')').addClass('text-bg-secondary');
-                } else {
-                    $('#dados-' + i).hide();
-                    $('.passo:eq(' + (i - 1) + ')').removeClass('text-bg-secondary');
-                }
-            }
-
-
-            if (currentStep === 1) {
-                //primeiro passo, desabilitar o botao de voltar
-                $('#btn-anterior').prop('disabled', true);
-            } else {
-                $('#btn-anterior').prop('disabled', false);
-            }
-
-            if (currentStep === maxSteps) {
-                //ultimo passo, mostrar o botão de enviar
-                $('#btn-proximo').hide();
-                $('#btn-enviar').show();
-            } else {
-                //Nao é o último passo, mostrar o botao de proximo
-                $('#btn-proximo').show();
-                $('#btn-enviar').hide();
-            }
-        }
-
-        //funcao para avançar para o proximo passo
-        function avancar() {
-            //verifica se todos os campos estão preenchidos antes de avancar, exceto o campo de imagem
-            var camposPreenchidos = true;
-            $('#dados-' + currentStep + ' input, #dados-' + currentStep + ' textarea').each(function () {
-                if ($(this).val() === '') {
-                    camposPreenchidos = false;
-                    return false; //para a iteracao
-                }
-            });
-
-            if (camposPreenchidos) {
-                currentStep++;
-                atualizarProgresso();
-            } else {
-                alert('Por favor, preencha todos os campos antes de avançar.');
-            }
-        }
-
-
-        //funcao para voltar para o passo anterior
-        function voltar() {
-            if (currentStep > 1) {
-                currentStep--;
-                atualizarProgresso();
-            }
-        }
-
-        //evento de clique no botao de proximo
-        $('#btn-proximo').click(avancar);
-
-        //evento de clique no botao de voltar
-        $('#btn-anterior').click(voltar);
-
-        //inicializacao do progresso
-        atualizarProgresso();
-    });
+    //mascaras de input
+    IMask(document.getElementById('telefone'), {mask: '(00) 0000-0000'});
+    IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
+    IMask(document.getElementById('cpf'), {mask: '000.000.000-00'});
+    IMask(document.getElementById('altura'), {mask: '0.00'});
+    IMask(document.getElementById('peso'), {mask: '000.00'});
 </script>
 </body>
 
