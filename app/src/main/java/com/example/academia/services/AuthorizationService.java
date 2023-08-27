@@ -1,5 +1,7 @@
 package com.example.academia.services;
 
+import com.example.academia.exceptions.UserNotFoundException;
+import com.example.academia.model.User;
 import com.example.academia.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +12,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthorizationService implements UserDetailsService {
 
-    @Autowired
-    UserRepository repository;
+    final UserRepository userRepository;
+
+    public AuthorizationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByLogin(username);
+        User user = userRepository.findByLogin(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Nenhum usuario encontrado com o login " + username);
+        }
+        return user;
     }
 }
