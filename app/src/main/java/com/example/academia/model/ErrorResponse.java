@@ -20,4 +20,11 @@ public class ErrorResponse {
         this.status = status;
         this.horario = horario;
     }
+
+    public ErrorResponse(HttpStatus status, String detalhe) {
+        this.status = status;
+        this.detalhe = detalhe;
+
+
+    }
 }

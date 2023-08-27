@@ -17,22 +17,32 @@ import java.io.IOException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    @Autowired
+    final
     TokenService tokenService;
-    @Autowired
+    final
     UserRepository userRepository;
+
+    public SecurityFilter(TokenService tokenService, UserRepository userRepository) {
+        this.tokenService = tokenService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = this.recoverToken(request);
-        if(token != null){
-            var login = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByLogin(login);
+        try {
+            var token = this.recoverToken(request);
+            if(token != null){
+                var login = tokenService.validateToken(token);
+                UserDetails user = userRepository.findByLogin(login);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+              filterChain.doFilter(request, response);
+        } catch (Exception ex) {
+            System.out.println("TESTE");
         }
-        filterChain.doFilter(request, response);
+
     }
 
     private String recoverToken(HttpServletRequest request){
