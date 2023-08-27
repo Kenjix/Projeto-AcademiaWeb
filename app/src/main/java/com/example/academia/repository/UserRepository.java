@@ -2,7 +2,9 @@ package com.example.academia.repository;
 
 import com.example.academia.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, String> {
-    User findByLogin(String login);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByEmail(String email);
 }
