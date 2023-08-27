@@ -19,7 +19,7 @@ public class AuthorizationService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(username);
         if (user == null) {
-            throw new UserNotFoundException("Usuario nao encontado com: " + username);
+            throw new UserNotFoundException("Nenhum usuario encontrado com o login " + username);
         }
         return user;
     }
