@@ -36,6 +36,11 @@ public class ClienteControler {
         return "formClienteCadastro";
     }
 
+    @GetMapping("/construcao")
+    public String showConstrucaoPage() {
+        return "construcao";
+    }
+
     //rota para pegar cliente especifico (detalhes)
     @GetMapping("/Cliente/{id}")
     public String findCliente(Model model, @PathVariable int id) {
