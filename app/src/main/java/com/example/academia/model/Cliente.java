@@ -72,12 +72,12 @@ public class Cliente {
         updated = new Date();
         dataInicio = new Date();
         ativo = true;
-        matricula = generateUniqueMatricula();
+        //matricula = generateUniqueMatricula();
     }
 
-    private String generateUniqueMatricula() {
+    /*private String generateUniqueMatricula() {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         return uuid.substring(0, 10).toUpperCase();
-    }
+    }*/
 
 }

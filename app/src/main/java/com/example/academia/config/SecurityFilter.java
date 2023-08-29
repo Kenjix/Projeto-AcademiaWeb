@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             }
               filterChain.doFilter(request, response);
         } catch (Exception ex) {
-            System.out.println("TESTE");
+            System.out.println("Erro de autenficacao: " + ex.getMessage());
         }
 
     }
