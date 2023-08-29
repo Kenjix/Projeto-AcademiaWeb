@@ -51,7 +51,6 @@ body {
     color:red;
 }
 
-.teste {
-    margin-right: 200px;
-    margin-top: 450px;
+.btn-tam {
+    min-width: 110px;
 }

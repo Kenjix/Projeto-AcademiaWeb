@@ -24,31 +24,38 @@
             <div class="row justify-content-center border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
                 <!--coluna formulario-->
                 <div class="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
-                    <div class="text-center p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary-emphasis"><img th:src="@{/images/icone.png}"
-                                width="20">&nbsp;GymGenius</strong>
-                        <h3 class="mb-0">Bem-vindo</h3>
-                        <div class="mb-1 text-body-secondary">Por favor, insira seus dados</div>
-                        <form th:action="@{/login}" method="post">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="Username" name="username"
-                                    placeholder="Email">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center p-4 d-flex flex-column position-static">
+                                    <strong class="d-inline-block mb-2 text-primary-emphasis"><img
+                                            th:src="@{/images/icone.png}" width="20">&nbsp;GymGenius</strong>
+                                    <h3 class="mb-0">Bem-vindo</h3>
+                                    <div class="mb-1 text-body-secondary">Por favor, insira seus dados</div>
+                                    <form th:action="@{/login}" method="post">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" id="Username" name="username"
+                                                placeholder="Email">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                placeholder="Senha">
+                                        </div>
+                                        <div class="erroLogin" th:if="${param.error}">
+                                            Credenciais inválidas.
+                                        </div>
+                                        <a href="#" class="d-block text-center mb-3">Esqueceu a senha?</a>
+                                        <a th:href="@{/cliente/cadastrar}" class="btn btn-dark btn-block btn-tam">Cadastre-se</a>
+                                        <button type="submit" class="btn btn-dark btn-block btn-tam">Entrar</button>                                        
+                                    </form>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="Senha">
-                            </div>
-                            <div class="erroLogin" th:if="${param.error}">
-                                Credenciais inválidas.
-                            </div>
-                            <a href="#" class="d-block text-center mb-3">Esqueceu a senha?</a>
-                            <button type="submit" class="btn btn-dark btn-block">Entrar</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <!--coluna de imagem (Oculto em telas medias e menores)-->
                 <div class="col-lg-6 col-md-0 d-none d-lg-block">
-                    <img th:src="@{/images/fotoacademiaform.jpg}" alt="imagem" height="650">
+                    <img th:src="@{/images/fotoacademiaform.jpg}" alt="imagem" height="550">
                 </div>
             </div>
         </div>
