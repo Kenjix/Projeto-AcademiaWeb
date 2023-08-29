@@ -37,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthDTO data) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((User) auth.getPrincipal());
@@ -45,11 +45,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
-        if (this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<Void> register(@RequestBody @Valid RegisterDTO data) {
+        if (this.repository.findByEmail(data.email()) != null) {
+            return ResponseEntity.badRequest().build();
+        }        
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.email(), encryptedPassword, data.role(), matriculaService.gerarProximaMatricula());
-        this.repository.save(newUser);
+        this.repository.save(newUser);        
         return ResponseEntity.ok().build();
     }
 }

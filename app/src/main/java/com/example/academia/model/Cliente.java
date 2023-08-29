@@ -6,8 +6,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.UUID;
-
 
 @Entity
 @Getter

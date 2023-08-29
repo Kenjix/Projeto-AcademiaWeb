@@ -1,7 +1,6 @@
 package com.example.academia.services;
 
 import com.example.academia.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Calendar;
 
@@ -10,7 +9,6 @@ public class MatriculaService {
 
     private final UserRepository userRepository;
 
-    @Autowired
     public MatriculaService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
