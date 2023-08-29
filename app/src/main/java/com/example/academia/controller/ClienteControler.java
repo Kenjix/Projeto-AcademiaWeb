@@ -52,7 +52,7 @@ public class ClienteControler {
         Cliente cliente = dao.findById(id).orElse(null);
         model.addAttribute("cliente", cliente);
 
-        return "editCliente";
+        return "editPerfil";
     }
 
     //rota para excluir cliente
