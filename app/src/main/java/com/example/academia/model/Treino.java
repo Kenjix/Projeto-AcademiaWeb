@@ -48,9 +48,6 @@ public class Treino {
     @JoinColumn(name = "FK_cliente")
     private Cliente clienteID;
 
-    @ManyToOne
-    @JoinColumn(name = "FK_funcionario")
-    private Funcionario funcionarioID;
 }
 
 

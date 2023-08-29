@@ -8,10 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Table(name = "users")
 @Entity
@@ -24,7 +21,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private UserRole role;
 
     @Column(length = 50)
@@ -74,31 +75,52 @@ public class User implements UserDetails {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
     @PrePersist
     private void onCreate() {
+        created = new Date();
         updated = new Date();
-        dataInicio = new Date();
         ativo = true;
-        matricula = generateUniqueMatricula();
     }
 
-    private String generateUniqueMatricula() {
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        return uuid.substring(0, 10).toUpperCase();
-    }
+    //atrubutos de instrutor
+    @Column
+    private int cargaHoraria;
 
-    public User(String email, String password, UserRole role){
+    @Column(length = 20)
+    private String turno;
+
+    @Column(length = 50)
+    private String especialidade;
+
+    public User(String email, String password, UserRole role, String matricula) {
         this.email = email;
         this.password = password;
         this.role = role;
-
+        this.matricula = matricula;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else if(this.role == UserRole.INSTRUTOR) return List.of(new SimpleGrantedAuthority("ROLE_INSTRUTOR"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        Map<UserRole, List<SimpleGrantedAuthority>> roleAuthorities = Map.of(
+                UserRole.ADMIN, List.of(
+                        new SimpleGrantedAuthority("ROLE_ADMIN"),
+                        new SimpleGrantedAuthority("ROLE_INSTRUTOR"),
+                        new SimpleGrantedAuthority("ROLE_USER")
+                ),
+                UserRole.INSTRUTOR, List.of(
+                        new SimpleGrantedAuthority("ROLE_INSTRUTOR"),
+                        new SimpleGrantedAuthority("ROLE_USER")
+                ),
+                UserRole.USER, List.of(
+                        new SimpleGrantedAuthority("ROLE_USER")
+                )
+        );
+        return roleAuthorities.getOrDefault(this.role, Collections.emptyList());
     }
 
     @Override

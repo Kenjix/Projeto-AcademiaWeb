@@ -1,3 +1,7 @@
+body {
+    background-color: #f8f9fa;
+}
+
 .fixed-footer {
     position: fixed;
     left: 0;
@@ -12,8 +16,7 @@
     margin-right: auto;
 }
 
-.form-container {
-    background-color: red; /* Defina a cor de fundo desejada */
+.form-container {    
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adicione uma sombra ao contorno */
@@ -42,4 +45,12 @@
     width: 200px;
     height: 200px;
     object-fit: cover
+}
+
+.erroLogin {
+    color:red;
+}
+
+.btn-tam {
+    min-width: 110px;
 }
