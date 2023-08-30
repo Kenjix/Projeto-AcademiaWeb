@@ -28,7 +28,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 60)
     private String nome;
 
     @Column(unique = true, length = 11)
@@ -40,14 +40,15 @@ public class User implements UserDetails {
     @Column(length = 12)
     private String telefone;
 
-    @Column(length = 11)
+    @Column(nullable = false, length = 11)
     private String celular;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 60)
     private String email;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false)
     private Date dataNasc;
 
     private float peso;
