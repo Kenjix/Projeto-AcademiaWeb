@@ -1,189 +1,205 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="row justify-content-center border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
-        <!--coluna formulario-->
-        <div class="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="text-center col p-4 d-flex flex-column position-static">
-                            <!-- Icone e Nome do App -->
-                            <div class="text-start">
-                                <strong class="text-left d-inline-block mb-2 text-primary-emphasis"><img
-                                        src="/images/icone.png" alt="icone" height="32"> GymGenius</strong>
-                            </div>
-                            <div class="container-fluid">
-                                <h4 class="mb-0 mt-2">Bem-vindo</h4>
-                                <div class="text-body-secondary">Por favor, insira seus dados para o cadastro</div>
-                                <form id="formulario" action="/cliente/salvar" method="post"
-                                      onsubmit="return validaForm()">
-                                    <!-- Parte 2: Dados Pessoais -->
-                                    <div id="dados-2">
-                                        <!--                                NOME COMPLETO-->
-                                        <div class="field mt-2">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="iconnome"><i
-                                                        class="bi bi-person-lines-fill"></i></span>
-                                                <input type="text" class="form-control" placeholder="Nome completo"
-                                                       aria-label="Username" aria-describedby="iconnome" required
-                                                       id="nome" name="nome" maxlength="50" value="">
-                                            </div>
-                                        </div>
-                                        <!--                                EMAIL-->
-                                        <div class="field mt-2">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="iconemail"><i
-                                                        class="bi bi-envelope-at"></i></span>
-                                                <input type="email" class="form-control" placeholder="Email"
-                                                       aria-label="email" aria-describedby="iconemail" required
-                                                       id="email" name="email" value="" maxlength="50">
-                                            </div>
-                                        </div>
-                                        <!--                                CELULAR-->
-                                        <div class="field mt-2">
-                                            <div class="input-group flex-nowrap">
 
-                                                <span class="input-group-text" id="iconcelular"><i
-                                                        class="bi bi-phone"></i></span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cadastro</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <style>
+            body {
+                background-color: #f8f9fa;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+        </style>
+    </head>
 
-                                                <input type="phone" class="form-control" placeholder="Celular"
-                                                       aria-label="celular" aria-describedby="iconcelular" id="celular"
-                                                       name="celular" value="" required>
-                                            </div>
-                                        </div>
-                                        <!--                                DATA DE NASCIMENTO-->
-                                        <div class="field mt-2">
-                                            <!--                                    <p class="small my-0 mx-0 text-start">Data de nascimento</p>-->
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="iconData">
-                                                    <img th:src="@{/images/cake-candles-solid.svg}">
-                                                </span>
-
-
-                                                <input type="date" class="form-control" placeholder="Data de nascimento"
-                                                       aria-label="Data de nascimento" aria-describedby="iconData"
-                                                       id="dataNasc" name="dataNasc" value="" required>
-                                            </div>
-                                        </div>
-                                        <!--                                SENHA-->
-                                        <div class="field mt-2">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="iconPassword"><i
-                                                        class="bi bi-key"></i></span>
-                                                <input type="password" class="form-control" placeholder="Senha"
-                                                       aria-label="Senha" aria-describedby="iconPassword" required
-                                                       id="password" name="password" value="">
-                                            </div>
-                                        </div>
-                                        <!--                                CONFIRMA SENHA-->
-                                        <div class="field mt-2">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="iconPassword2"><i
-                                                        class="bi bi-check-circle"></i></span>
-                                                <input type="password" class="form-control"
-                                                       placeholder="Confirme sua Senha" aria-label="ConfirmaSenha"
-                                                       aria-describedby="iconPassword2" required="" id="passwordConfirm"
-                                                       name="passwordConfirm" value="">
-                                            </div>
-                                            <small id="passwordHelpBlock"
-                                                   class="form-text text-muted align-items-start">
-                                                Sua senha deve possuir entre 8 e 20 caracteres.
-                                            </small>
-                                        </div>
+    <body>
+        <div class="container">
+            <div class="row justify-content-center border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
+                <!--coluna formulario-->
+                <div class="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-center col p-4 d-flex flex-column position-static">
+                                    <!-- Icone e Nome do App -->
+                                    <div class="text-start">
+                                        <strong class="text-left d-inline-block mb-2 text-primary-emphasis"><img
+                                                src="/images/icone.png" alt="icone" height="32"> GymGenius</strong>
                                     </div>
-                                    <!--                            <div class="field mt-2">-->
-                                    <!--                                <div class="input-group flex-nowrap">-->
-                                    <!--                                    <span class="input-group-text" id="iconcpf"><i-->
-                                    <!--                                            class="bi bi-file-text"></i></span>-->
-                                    <!--                                    <input type="text" class="form-control" placeholder="CPF" aria-label="cpf"-->
-                                    <!--                                           aria-describedby="iconcpf" required id="cpf" name="cpf" value="">-->
-                                    <!--                                </div>-->
-                                    <!--                            </div>-->
-                                    <!-- Parte 2: Contato -->
-                                    <!--                            <div id="dados-3" style="display: none;">-->
-                                    <!--                                <p class="my-0 mx-0 text-start">Dados de contato</p>-->
-                                    <!--                                <div class="field mt-2">-->
-                                    <!--                                    <div class="input-group flex-nowrap">-->
-                                    <!--                                        <span class="input-group-text" id="icontelefone"><i class="bi bi-telephone"></i></span>-->
-                                    <!--                                        <input type="text" class="form-control" placeholder="Telefone"-->
-                                    <!--                                               aria-label="telefone" aria-describedby="icontelefone" id="telefone"-->
-                                    <!--                                               name="telefone" value="">-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-
-
-                                    <!--                            </div>-->
-                                    <div class="erroMsg">
-
-                                    </div>
-                                    <div class="field mt-4">
-                                        <div class="control has-text-centered">
-                                            <button id="btn-enviar" class="btn btn-success mt-3" type="submit">
-                                                Concluir
-                                            </button>
+                                    <div class="container-fluid">
+                                        <h4 class="mb-0 mt-2">Bem-vindo</h4>
+                                        <div class="text-body-secondary">Por favor, insira seus dados para o cadastro
                                         </div>
+                                        <form id="formulario" method="post" th:action="@{/auth/register}">
+                                            <!-- Parte 2: Dados Pessoais -->
+                                            <div id="dados-2">
+                                                <!--                                NOME COMPLETO-->
+                                                <div class="field mt-2">
+                                                    <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="iconnome"><i
+                                                                class="bi bi-person-lines-fill"></i></span>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Nome completo" aria-label="Username"
+                                                            aria-describedby="iconnome" required id="nome" name="nome"
+                                                            maxlength="50" value="">
+                                                    </div>
+                                                </div>
+                                                <!--                                EMAIL-->
+                                                <div class="field mt-2">
+                                                    <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="iconemail"><i
+                                                                class="bi bi-envelope-at"></i></span>
+                                                        <input type="email" class="form-control" placeholder="Email"
+                                                            aria-label="email" aria-describedby="iconemail" required
+                                                            id="email" name="email" value="" maxlength="50">
+                                                    </div>
+                                                </div>
+                                                <!--                                CELULAR-->
+                                                <div class="field mt-2">
+                                                    <div class="input-group flex-nowrap">
+
+                                                        <span class="input-group-text" id="iconcelular"><i
+                                                                class="bi bi-phone"></i></span>
+
+                                                        <input type="phone" class="form-control" placeholder="Celular"
+                                                            aria-label="celular" aria-describedby="iconcelular"
+                                                            id="celular" name="celular" value="" required>
+                                                    </div>
+                                                </div>
+                                                <!--                                DATA DE NASCIMENTO-->
+                                                <div class="field mt-2">
+                                                    <!--                                    <p class="small my-0 mx-0 text-start">Data de nascimento</p>-->
+                                                    <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="iconData">
+                                                            <img th:src="@{/images/cake-candles-solid.svg}">
+                                                        </span>
+
+                                                        <input type="date" class="form-control"
+                                                            placeholder="Data de nascimento"
+                                                            aria-label="Data de nascimento" aria-describedby="iconData"
+                                                            id="dataNasc" name="dataNasc" value="" required>
+                                                    </div>
+                                                </div>
+                                                <!--                                SENHA-->
+                                                <div class="field mt-2">
+                                                    <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="iconPassword"><i
+                                                                class="bi bi-key"></i></span>
+                                                        <input type="password" class="form-control" placeholder="Senha"
+                                                            aria-label="Senha" aria-describedby="iconPassword" required
+                                                            id="password" name="password" value="">
+                                                    </div>
+                                                </div>
+                                                <!--                                CONFIRMA SENHA-->
+                                                <div class="field mt-2">
+                                                    <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="iconPassword2"><i
+                                                                class="bi bi-check-circle"></i></span>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Confirme sua Senha" aria-label="ConfirmaSenha"
+                                                            aria-describedby="iconPassword2" required=""
+                                                            id="passwordConfirm" name="passwordConfirm" value="">
+                                                    </div>
+                                                    <small id="passwordHelpBlock"
+                                                        class="form-text text-muted align-items-start">
+                                                        Sua senha deve possuir entre 8 e 20 caracteres.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <!--                            <div class="field mt-2">-->
+                                            <!--                                <div class="input-group flex-nowrap">-->
+                                            <!--                                    <span class="input-group-text" id="iconcpf"><i-->
+                                            <!--                                            class="bi bi-file-text"></i></span>-->
+                                            <!--                                    <input type="text" class="form-control" placeholder="CPF" aria-label="cpf"-->
+                                            <!--                                           aria-describedby="iconcpf" required id="cpf" name="cpf" value="">-->
+                                            <!--                                </div>-->
+                                            <!--                            </div>-->
+                                            <!-- Parte 2: Contato -->
+                                            <!--                            <div id="dados-3" style="display: none;">-->
+                                            <!--                                <p class="my-0 mx-0 text-start">Dados de contato</p>-->
+                                            <!--                                <div class="field mt-2">-->
+                                            <!--                                    <div class="input-group flex-nowrap">-->
+                                            <!--                                        <span class="input-group-text" id="icontelefone"><i class="bi bi-telephone"></i></span>-->
+                                            <!--                                        <input type="text" class="form-control" placeholder="Telefone"-->
+                                            <!--                                               aria-label="telefone" aria-describedby="icontelefone" id="telefone"-->
+                                            <!--                                               name="telefone" value="">-->
+                                            <!--                                    </div>-->
+                                            <!--                                </div>-->
+
+
+                                            <!--                            </div>-->
+                                            <div class="erroMsg">
+
+                                            </div>
+                                            <div class="field mt-4">
+                                                <div class="control has-text-centered">
+                                                    <button id="btn-enviar" class="btn btn-success mt-3" type="submit">
+                                                        Concluir
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--coluna de imagem (Oculto em telas medias e menores)-->
+                <div class="col-lg-6 col-md-0 d-none d-lg-block">
+                    <img th:src="@{/images/fotoacademiaform.jpg}" alt="imagem" height="550">
+                </div>
             </div>
         </div>
-        <!--coluna de imagem (Oculto em telas medias e menores)-->
-        <div class="col-lg-6 col-md-0 d-none d-lg-block">
-            <img th:src="@{/images/fotoacademiaform.jpg}" alt="imagem" height="550">
-        </div>
-    </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/imask"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/imask"></script>
 
-<script>
-    function validaForm() {
-        let senha = document.getElementById('password').value;
-        let confirmaSenha = document.getElementById('passwordConfirm').value;
-        let erroMsgDiv = document.querySelector('.erroMsg');
-        erroMsgDiv.innerHTML = "";
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                IMask(document.getElementById('celular'), { mask: '(00) 00000-0000' });
+                const form = document.getElementById('formulario');
+                form.addEventListener('submit', function (event) {
+                    if (!validaForm()) {
+                        event.preventDefault();
+                    }
+                });
+                const dataNascInput = document.getElementById('dataNasc');
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const maxDate = `${yyyy}-${mm}-${dd}`;
+                dataNascInput.setAttribute('max', maxDate);
+            });
 
-        if (senha !== confirmaSenha) {
-            erroMsgDiv.innerHTML = "As senhas não correspondem.";
-            return false;
-        }
+            function validaForm() {
+                let senha = document.getElementById('password').value;
+                let confirmaSenha = document.getElementById('passwordConfirm').value;
+                let erroMsgDiv = document.querySelector('.erroMsg');
+                erroMsgDiv.innerHTML = "";
 
-        if (senha.length < 8) {
-            erroMsgDiv.innerHTML = "A senha não atende os critérios de segurança.";
-            return false;
-        }
-        return true;
-    }
+                if (senha !== confirmaSenha) {
+                    erroMsgDiv.innerHTML = "As senhas não correspondem.";
+                    return false;
+                }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
-    });
-</script>
-</body>
+                if (senha.length < 8) {
+                    erroMsgDiv.innerHTML = "A senha não atende os critérios de segurança.";
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </body>
 
 </html>

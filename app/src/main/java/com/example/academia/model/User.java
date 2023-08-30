@@ -98,11 +98,14 @@ public class User implements UserDetails {
     @Column(length = 50)
     private String especialidade;
 
-    public User(String email, String password, UserRole role, String matricula) {
+    public User(String email, String password, UserRole role, String matricula, String nome, String celular, Date dataNasc) {
         this.email = email;
         this.password = password;
         this.role = role;
         this.matricula = matricula;
+        this.nome = nome;
+        this.celular = celular;
+        this.dataNasc = dataNasc;
     }
 
     @Override

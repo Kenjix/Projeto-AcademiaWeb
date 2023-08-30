@@ -121,10 +121,7 @@ public class ClienteControler {
         return "redirect:/cliente/listar";
     }*/
 
-    @PostMapping("salvar")
-    public String salvarUser() {
-        return null;
-    }
+
 
     //rota para atualizar cliente
     @PostMapping ("/atualizar/{id}")

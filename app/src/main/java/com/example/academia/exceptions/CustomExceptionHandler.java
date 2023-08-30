@@ -15,7 +15,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Usuario inexistente", ex.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")));
+        ErrorResponse errorResponse = new ErrorResponse("Erro", ex.getMessage(), HttpStatus.NOT_FOUND,
+                ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")));
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailExistsException.class)
+    public ResponseEntity<ErrorResponse> handleEmailExistsException(EmailExistsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Erro", ex.getMessage(), HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")));
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }
