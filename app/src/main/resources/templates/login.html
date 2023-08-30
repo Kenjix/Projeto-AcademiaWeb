@@ -46,11 +46,11 @@
                                                 <a href="#" class="d-block text-center mb-3 small text-primary-emphasis">Esqueceu a senha?</a>
                                             </div>
                                         </div>
-                                        <div class="erroLogin" th:if="${param.error}">
+                                        <div class="erroMsg" th:if="${param.error}">
                                             Credenciais inválidas.
                                         </div>
                                         <button type="submit" class="btn btn-dark btn-block btn-tam">Entrar</button>
-                                        <div class="justify-content-center mt-3 d-flex d-inline">
+                                        <div class="justify-content-center mt-3 d-flex d-inline text-nowrap">
                                             <p class="small">Não possui uma conta?</p><a th:href="@{/cliente/cadastrar}" class="ms-1 small text-primary-emphasis"><strong>Cadastre-se</strong></a>
                                         </div>
                                     </form>

@@ -66,7 +66,7 @@ public class ClienteControler {
     }
 
     //rota para salvar os dados do cliente preenchidos do form Cadastro
-    @PostMapping("/salvar")
+    /*@PostMapping("/salvar")
     public String salvarCliente(@ModelAttribute("cliente") @Valid Cliente cliente,
                                 BindingResult bindingResult,
                                 @RequestParam("foto") MultipartFile fotoFile,
@@ -119,6 +119,11 @@ public class ClienteControler {
         List<Cliente> listaCliente = (List<Cliente>) dao.findAll();
         model.addAttribute("clientes", listaCliente);
         return "redirect:/cliente/listar";
+    }*/
+
+    @PostMapping("salvar")
+    public String salvarUser() {
+        return null;
     }
 
     //rota para atualizar cliente

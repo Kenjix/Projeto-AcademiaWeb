@@ -47,8 +47,8 @@ body {
     object-fit: cover
 }
 
-.erroLogin {
-    color:red;
+.erroMsg {
+    color: #9e0101;
 }
 
 .btn-tam {
