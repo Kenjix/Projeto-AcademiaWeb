@@ -45,7 +45,7 @@ public class ClienteControler {
     public String showTreinosPage() {
         return "meustreinos";
     }
-
+/* 
     //rota para pegar cliente especifico (detalhes)
     @GetMapping("/Cliente/{id}")
     public String findCliente(Model model, @PathVariable int id) {
@@ -53,7 +53,7 @@ public class ClienteControler {
         model.addAttribute("cliente", cliente);
 
         return "editPerfil";
-    }
+    }*/
 
     //rota para excluir cliente
     @GetMapping("/excluir/{id}")
