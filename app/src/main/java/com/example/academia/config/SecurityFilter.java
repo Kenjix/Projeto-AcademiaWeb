@@ -57,7 +57,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
     private Long extractResourceIdFromRequest(HttpServletRequest request) {
-        //obtem a parte final da URL do request, que contém o ID.
+        //obtem a parte final da URL do request, que contem o ID.
         String requestURI = request.getRequestURI();
 
         //dividi a URL para pegar o conteudo depois das "/" e obtem o ultimo segmento        

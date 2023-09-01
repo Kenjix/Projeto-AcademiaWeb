@@ -32,7 +32,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/images/**", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")                        
                         .requestMatchers(HttpMethod.GET, "/cliente/listar").hasAnyRole("INSTRUTOR", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/cliente/cadastrar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()

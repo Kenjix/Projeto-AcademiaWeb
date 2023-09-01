@@ -32,11 +32,11 @@ public class UserController {
         }
         return "redirect:/alguma_pagina_de_erro1";
     }
-
+    
+    
     @GetMapping("/{id}")
     public String exibirUser(@PathVariable Long id, Model model) {
         User user = dao.findById(id).orElse(null);
-
         if (user != null) {
             model.addAttribute("user", user);
             return "editPerfil";

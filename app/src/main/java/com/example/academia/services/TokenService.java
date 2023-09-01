@@ -28,7 +28,7 @@ public class TokenService {
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("Error while generating token", exception);
+            throw new RuntimeException("Erro na geracao do token", exception);
         }
     }
 
