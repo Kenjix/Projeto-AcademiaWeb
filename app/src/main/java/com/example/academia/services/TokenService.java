@@ -23,6 +23,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("academiaWeb-api")
                     .withSubject(user.getEmail())
+                    .withClaim("userId", user.getId())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;
