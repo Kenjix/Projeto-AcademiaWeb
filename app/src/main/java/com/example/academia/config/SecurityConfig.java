@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll()
-                )
+                )            
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/images/**", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")                        

@@ -1,5 +1,6 @@
 package com.example.academia.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,10 +36,13 @@ public class UserController {
     
     
     @GetMapping("/{id}")
-    public String exibirUser(@PathVariable Long id, Model model) {
-        User user = dao.findById(id).orElse(null);
-        if (user != null) {
-            model.addAttribute("user", user);
+    public String exibirUser(@PathVariable Long id, Model model, Authentication authentication) {
+        //verifica se o user esta autenticado
+        if (authentication != null && authentication.isAuthenticated()) {
+            //obtem o nome do usuario autenticado pelo email
+            String username = authentication.getName();    
+            //atribui o user ao model
+            model.addAttribute("userId", username);
             return "editPerfil";
         } else {
             return "redirect:/alguma_pagina_de_erro2";
