@@ -2,7 +2,7 @@ package com.example.academia.controller;
 
 import com.example.academia.model.DTO.AuthDTO;
 import com.example.academia.model.DTO.LoginResponseDTO;
-import com.example.academia.model.DTO.RegisterDTO;
+import com.example.academia.model.DTO.UserRegisterDTO;
 import com.example.academia.enuns.UserRole;
 import com.example.academia.exceptions.EmailExistsException;
 import com.example.academia.model.User;
@@ -50,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@ModelAttribute("user") @Valid RegisterDTO data,
+    public ResponseEntity<Void> register(@ModelAttribute("user") @Valid UserRegisterDTO data,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {            
             return ResponseEntity.badRequest().build();

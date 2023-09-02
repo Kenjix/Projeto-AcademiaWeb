@@ -47,9 +47,9 @@
                 <div class="col-md-6">
                     <div
                         class="row p-5 g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <form action="#" th:action="@{/usuario/show/{id}(id=${user.id})}" th:object="${user}"
-                            method="post">
-
+                        <form th:action="@{/usuario/atualizar}"  th:object="${user}" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <input type="hidden" name="userId" th:value="${user.id}" />
                             <h5 class="text-center">Dados Pessoais</h5>
                             <hr class="border-bottom">
                             <div class="row">
@@ -65,20 +65,20 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="nome" class="form-label"><strong>Nome:</strong></label>
-                                        <input id="nome" class="form-control" th:value="${user.nome}" maxlength="50">
+                                        <input id="nome" name="nome" class="form-control" th:value="${user.nome}" maxlength="50">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-                                                <input id="cpf" class="form-control" th:value="${user.cpf}" readonly>
+                                                <input id="cpf" name="cpf" class="form-control" th:value="${user.cpf}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="dataNasc" class="form-label"><strong>Data de
                                                         Nascimento:</strong></label>
-                                                <input type="date" id="dataNasc" class="form-control"
+                                                <input type="date" name="dataNasc" id="dataNasc" class="form-control"
                                                     th:value="${user.dataNasc}">
                                             </div>
                                         </div>
@@ -97,13 +97,13 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
-                                            <input id="telefone" class="form-control" th:value="${user.telefone}">
+                                            <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="celular" class="form-label"><strong>Celular:</strong></label>
-                                            <input id="celular" class="form-control" th:value="${user.celular}">
+                                            <input id="celular" name="celular" class="form-control" th:value="${user.celular}">
                                         </div>
                                     </div>
                                 </div>
@@ -114,25 +114,25 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="peso" class="form-label"><strong>Peso(kilo):</strong></label>
-                                        <input id="peso" class="form-control" th:value="${user.peso}">
+                                        <input id="peso" name="peso" class="form-control" th:value="${user.peso}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="altura" class="form-label"><strong>Altura(metro):</strong></label>
-                                        <input id="altura" class="form-control" th:value="${user.altura}">
+                                        <input id="altura" name="altura" class="form-control" th:value="${user.altura}">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="objetivo" class="form-label"><strong>Objetivo:</strong></label>
-                                <input id="objetivo" class="form-control" th:value="${user.objetivo}">
+                                <input id="objetivo" name="objetivo" class="form-control" th:value="${user.objetivo}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
-                                <input id="observacoes" class="form-control" th:value="${user.observacoes}">
+                                <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}">
                             </div>
 
                             <div class="text-center">
@@ -163,7 +163,7 @@
                 const dd = String(today.getDate()).padStart(2, '0');
                 const maxDate = `${yyyy}-${mm}-${dd}`;
                 dataNascInput.setAttribute('max', maxDate);
-            });           
+            });
         </script>
     </body>
 

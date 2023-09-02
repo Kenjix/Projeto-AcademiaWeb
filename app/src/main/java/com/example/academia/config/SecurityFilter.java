@@ -34,12 +34,11 @@ public class SecurityFilter extends OncePerRequestFilter {
                 var login = tokenService.validateToken(token);
                 UserDetails user = userRepository.findByEmail(login);
 
-                if (user != null && user instanceof User) {
-                    User userDetails = (User) user;                    
+                if (user != null && user instanceof User userDetails) {
                     Long userId = userDetails.getId();
                     //verifica se o ID do user no token corresponde ao ID associado ao recurso
                     Long resourceId = extractResourceIdFromRequest(request);
-                    if (resourceId != null && userId.equals(resourceId)) {
+                    if (userId.equals(resourceId)) {
                         var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
                                 userDetails.getAuthorities());
                         SecurityContextHolder.getContext().setAuthentication(authentication);

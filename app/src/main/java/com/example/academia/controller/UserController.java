@@ -1,17 +1,20 @@
 package com.example.academia.controller;
 
+import com.example.academia.model.DTO.UserUpdateDTO;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.academia.model.User;
 import com.example.academia.repository.UserRepository;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/usuario")
@@ -31,21 +34,34 @@ public class UserController {
             model.addAttribute("user", user);
             return "editPerfil";
         }
-        return "redirect:/alguma_pagina_de_erro1";
+        return "redirect:/error403";
     }
-    
-    
-    @GetMapping("/{id}")
-    public String exibirUser(@PathVariable Long id, Model model, Authentication authentication) {
-        //verifica se o user esta autenticado
-        if (authentication != null && authentication.isAuthenticated()) {
-            //obtem o nome do usuario autenticado pelo email
-            String username = authentication.getName();    
-            //atribui o user ao model
-            model.addAttribute("userId", username);
-            return "editPerfil";
-        } else {
-            return "redirect:/alguma_pagina_de_erro2";
+
+    @PostMapping("/atualizar")
+    public String atualizarPerfil(@ModelAttribute @Valid UserUpdateDTO data, Authentication authentication) {
+        try {
+            if (authentication.isAuthenticated()) {
+                User user = dao.findByEmail(authentication.getName());
+                // Verifique se o usuário autenticado está tentando atualizar seu próprio perfil
+                if (!user.getId().equals(data.userId())) {
+                    return "redirect:/error403";
+                }
+                user.setNome(data.nome());
+                user.setCpf(data.cpf());
+                user.setDataNasc(data.dataNasc());
+                user.setTelefone(data.telefone().replaceAll("[\\s()-]",""));
+                user.setCelular(data.celular().replaceAll("[\\s()-]",""));
+                user.setPeso(data.peso());
+                user.setAltura(data.altura());
+                user.setObjetivo(data.objetivo());
+                user.setObservacoes(data.observacoes());
+                dao.save(user);
+                return "redirect:/usuario/perfil";
+            }
+            return "redirect:/error403";
+        } catch (Exception e) {
+            return "redirect:/error500";
         }
     }
+
 }
