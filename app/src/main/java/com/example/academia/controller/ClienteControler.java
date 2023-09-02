@@ -3,21 +3,10 @@ package com.example.academia.controller;
 
 import com.example.academia.model.Cliente;
 import com.example.academia.repository.ClienteRepository;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
-import javax.validation.Valid;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -151,7 +140,7 @@ public class ClienteControler {
             model.addAttribute("clientes", listaCliente);
         }
 
-        return "redirect:/cliente/listar";
+        return "editPerfil";
     }
 
     //rota para ver ficha / detalhes do cliente
@@ -164,7 +153,7 @@ public class ClienteControler {
             model.addAttribute("cliente", cliente);
         }
 
-        return "fichaCliente";
+        return "visualizarPerfil";
     }
 
     //rota para listar todos os clientes

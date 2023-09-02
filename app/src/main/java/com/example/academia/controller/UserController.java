@@ -32,7 +32,7 @@ public class UserController {
         if (authentication.isAuthenticated()) {
             User user = dao.findByEmail(authentication.getName());
             model.addAttribute("user", user);
-            return "editPerfil";
+            return "visualizarPerfil";
         }
         return "redirect:/error403";
     }
