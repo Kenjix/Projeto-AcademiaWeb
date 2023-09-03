@@ -11,8 +11,8 @@
         }
 
         .fit-img {
-            width: 200px;
-            height: 200px;
+            width: 320px;
+            height: 320px;
             object-fit: cover
         }
     </style>
@@ -23,16 +23,17 @@
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-12">
             <div class="row p-5 g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
-                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post">
+                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="userId" th:value="${user.id}"/>
                     <h5 class="text-center">Dados Pessoais</h5>
                     <hr class="border-bottom">
                     <div class="row">
                         <div class="col-md-3 mb-3 d-flex align-items-center justify-content-center">
-                            <img class="mx-4" src="/images/avatar_placeholder.png" width="320">
-                            <!--                                <img class="rounded-circle fit-img align-middle"-->
-                            <!--                                    th:src="'data:image/jpeg;base64,' + *{foto}" alt="Foto do Cliente">-->
+                            <input type="file" id="fotoInput" name="foto" accept="image/*" style="display: none;">
+                            <label for="fotoInput">
+                                <img class="rounded-circle mx-4 fit-img" id="preview" th:src="@{/images/avatar_placeholder.png}" style="cursor: pointer">
+                            </label>
                         </div>
                         <div class="col-md-9">
                             <div class="mb-3">
@@ -110,7 +111,7 @@
                     </div>
                 <div class="text-center">
                     <a type="button" class="btn btn-outline-secondary"
-                       th:href="@{/}"><strong>Voltar</strong></a>
+                       th:href="@{/usuario/perfil}"><strong>Voltar</strong></a>
                     <button type="submit" class="btn btn-secondary"><strong>Atualizar</strong></button>
                 </div>
                 </form>
@@ -142,7 +143,7 @@
                 if (v.length === 4) {
                     v = '0' + v;
                 }
-                v = v.slice(0, 5); // Limitar a 5 caracteres
+                v = v.slice(0, 5);
                 v = v.replace(/^(\d{1,3})(\d{2})$/, "$1.$2");
             }
             this.value = v;
@@ -157,7 +158,23 @@
         dataNascInput.setAttribute('max', maxDate);
     });
 
-
+    document.getElementById('fotoInput').addEventListener('change', function () {
+        const preview = document.getElementById('preview');
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const novaImagem = new Image();
+                novaImagem.src = e.target.result;
+                novaImagem.onload = function () {
+                    preview.src = novaImagem.src;
+                };
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "/images/avatar_placeholder.png";
+        }
+    });
 </script>
 </body>
 </html>
