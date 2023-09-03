@@ -2,9 +2,6 @@ package com.example.academia.controller;
 
 import com.example.academia.model.DTO.UserUpdateDTO;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,14 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import com.example.academia.model.User;
 import com.example.academia.repository.UserRepository;
 
-import java.util.Optional;
-
 @Controller
 @RequestMapping(path = "/usuario")
 public class UserController {
-
     private final UserRepository dao;
-
     public UserController(UserRepository dao) {
         this.dao = dao;
     }
@@ -47,7 +40,6 @@ public class UserController {
         }
         return "redirect:/error403";
     }
-
 
     @PostMapping("/atualizar")
     public String atualizarPerfil(@ModelAttribute @Valid UserUpdateDTO data, Authentication authentication) {
