@@ -37,17 +37,28 @@ public class UserController {
         return "redirect:/error403";
     }
 
+    @GetMapping("/perfil/atualizar")
+    public String editarPerfil(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            User user = dao.findByEmail(authentication.getName());
+            model.addAttribute("user", user);
+            return "editPerfil";
+        }
+        return "redirect:/error403";
+    }
+
+
     @PostMapping("/atualizar")
     public String atualizarPerfil(@ModelAttribute @Valid UserUpdateDTO data, Authentication authentication) {
         try {
             if (authentication.isAuthenticated()) {
                 User user = dao.findByEmail(authentication.getName());
-                // Verifique se o usuário autenticado está tentando atualizar seu próprio perfil
                 if (!user.getId().equals(data.userId())) {
                     return "redirect:/error403";
                 }
                 user.setNome(data.nome());
-                user.setCpf(data.cpf());
+                user.setCpf(data.cpf().replaceAll("[\\s.-]",""));
                 user.setDataNasc(data.dataNasc());
                 user.setTelefone(data.telefone().replaceAll("[\\s()-]",""));
                 user.setCelular(data.celular().replaceAll("[\\s()-]",""));

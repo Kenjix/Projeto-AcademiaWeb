@@ -18,262 +18,146 @@
     </style>
 </head>
 <body>
-    <div class="mt-5">
-        <h2 class="my-3 mx-3">Meu Perfil</h2>
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-md-12">
-                <div
-                    class="row p-5 g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
-                    <form action="#" th:action="@{/usuario/show/{id}(id=${user.id})}" th:object="${user}"
-                        method="post">
-
-<<<<<<< HEAD
-            .fit-img {
-                width: 200px;
-                height: 200px;
-                object-fit: cover
-            }
-        </style>
-    </head>
-
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="http://localhost:8080/cliente/cadastrar">
-                        <img src="/images/UFN.png" alt="UFN logo" height="28">
-                    </a>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="http://localhost:8080/cliente/cadastrar"><strong>CADASTRO</strong></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="http://localhost:8080/cliente/listar"><strong>LISTAR</strong></a>
-                            </li>
-                        </ul>
+<div class="mt-5">
+    <h2 class="my-3 mx-3">Meu Perfil</h2>
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-12">
+            <div class="row p-5 g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
+                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="hidden" name="userId" th:value="${user.id}"/>
+                    <h5 class="text-center">Dados Pessoais</h5>
+                    <hr class="border-bottom">
+                    <div class="row">
+                        <div class="col-md-3 mb-3 d-flex align-items-center justify-content-center">
+                            <img class="mx-4" src="/images/avatar_placeholder.png" width="320">
+                            <!--                                <img class="rounded-circle fit-img align-middle"-->
+                            <!--                                    th:src="'data:image/jpeg;base64,' + *{foto}" alt="Foto do Cliente">-->
+                        </div>
+                        <div class="col-md-9">
+                            <div class="mb-3">
+                                <label for="matricula" class="form-label"><strong>Matrícula:</strong></label>
+                                <input id="matricula" class="form-control" th:value="${user.matricula}" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nome" class="form-label"><strong>Nome:</strong></label>
+                                <input id="nome" name="nome" class="form-control" th:value="${user.nome}" maxlength="50">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="cpf" class="form-label"><strong>CPF:</strong></label>
+                                        <input id="cpf" name="cpf" class="form-control" th:value="${user.cpf}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="dataNasc" class="form-label"><strong>Data de Nascimento:</strong></label>
+                                        <input type="date" id="dataNasc" name="dataNasc" class="form-control" th:value="${user.dataNasc}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </header>
-        <div class="mt-5">
-            <h2 class="my-3 text-center">Meu Perfil</h2>
-            <div class="row justify-content-center align-items-center h-100">
-                <div class="col-md-6">
-                    <div
-                        class="row p-5 g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        <form th:action="@{/usuario/atualizar}"  th:object="${user}" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <input type="hidden" name="userId" th:value="${user.id}" />
-                            <h5 class="text-center">Dados Pessoais</h5>
-                            <hr class="border-bottom">
-                            <div class="row">
-                                <div class="col-md-3 mb-3 d-flex align-items-center justify-content-center">
-                                    <img class="rounded-circle fit-img align-middle"
-                                        th:src="'data:image/jpeg;base64,' + *{foto}" alt="Foto do Cliente">
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="mb-3">
-                                        <label for="matricula" class="form-label"><strong>Matrícula:</strong></label>
-                                        <input id="matricula" class="form-control" th:value="${user.matricula}"
-                                            disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nome" class="form-label"><strong>Nome:</strong></label>
-                                        <input id="nome" name="nome" class="form-control" th:value="${user.nome}" maxlength="50">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-                                                <input id="cpf" name="cpf" class="form-control" th:value="${user.cpf}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="dataNasc" class="form-label"><strong>Data de
-                                                        Nascimento:</strong></label>
-                                                <input type="date" name="dataNasc" id="dataNasc" class="form-control"
-                                                    th:value="${user.dataNasc}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-=======
-                        <h5 class="text-center">Dados Pessoais</h5>
-                        <hr class="border-bottom">
-                        <div class="row">
-                            <div class="col-md-3 mb-3 d-flex align-items-center justify-content-center">
-                                <img class="mx-4" src="/images/avatar_placeholder.png" width="320">
-<!--                                <img class="rounded-circle fit-img align-middle"-->
-<!--                                    th:src="'data:image/jpeg;base64,' + *{foto}" alt="Foto do Cliente">-->
->>>>>>> c7e0eb2e8495793a6c757238d48c0979afd71595
-                            </div>
-                            <div class="col-md-9">
-                                <div class="mb-3">
-                                    <label for="matricula" class="form-label"><strong>Matrícula:</strong></label>
-                                    <input id="matricula" class="form-control" th:value="${user.matricula}"
-                                        disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nome" class="form-label"><strong>Nome:</strong></label>
-                                    <input id="nome" class="form-control" th:value="${user.nome}" maxlength="50">
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-<<<<<<< HEAD
-                                            <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
-                                            <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}">
-=======
-                                            <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-                                            <input id="cpf" class="form-control" th:value="${user.cpf}" readonly>
->>>>>>> c7e0eb2e8495793a6c757238d48c0979afd71595
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-<<<<<<< HEAD
-                                            <label for="celular" class="form-label"><strong>Celular:</strong></label>
-                                            <input id="celular" name="celular" class="form-control" th:value="${user.celular}">
-=======
-                                            <label for="dataNasc" class="form-label"><strong>Data de
-                                                    Nascimento:</strong></label>
-                                            <input type="date" id="dataNasc" class="form-control"
-                                                th:value="${user.dataNasc}">
->>>>>>> c7e0eb2e8495793a6c757238d48c0979afd71595
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <h5 class="text-center mt-4">Contatos</h5>
+                    <hr class="border-bottom">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><strong>Email:</strong></label>
+                            <input id="email" class="form-control" th:value="${user.email}" maxlength="50"
+                                   disabled>
                         </div>
-                        <h5 class="text-center mt-4">Contatos</h5>
-                        <hr class="border-bottom">
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="email" class="form-label"><strong>Email:</strong></label>
-                                <input id="email" class="form-control" th:value="${user.email}" maxlength="50"
-                                    disabled>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-<<<<<<< HEAD
-                                        <label for="peso" class="form-label"><strong>Peso(kilo):</strong></label>
-                                        <input id="peso" name="peso" class="form-control" th:value="${user.peso}">
-=======
-                                        <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
-                                        <input id="telefone" class="form-control" th:value="${user.telefone}">
->>>>>>> c7e0eb2e8495793a6c757238d48c0979afd71595
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-<<<<<<< HEAD
-                                        <label for="altura" class="form-label"><strong>Altura(metro):</strong></label>
-                                        <input id="altura" name="altura" class="form-control" th:value="${user.altura}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="objetivo" class="form-label"><strong>Objetivo:</strong></label>
-                                <input id="objetivo" name="objetivo" class="form-control" th:value="${user.objetivo}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
-                                <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}">
-=======
-                                        <label for="celular" class="form-label"><strong>Celular:</strong></label>
-                                        <input id="celular" class="form-control" th:value="${user.celular}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h5 class="text-center mt-4">Informações extras</h5>
-                        <hr class="border-bottom">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="peso" class="form-label"><strong>Peso(kilo):</strong></label>
-                                    <input id="peso" class="form-control" th:value="${user.peso}">
+                                    <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
+                                    <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="altura" class="form-label"><strong>Altura(metro):</strong></label>
-                                    <input id="altura" class="form-control" th:value="${user.altura}">
+                                    <label for="celular" class="form-label"><strong>Celular:</strong></label>
+                                    <input id="celular" name="celular" class="form-control" th:value="${user.celular}">
                                 </div>
->>>>>>> c7e0eb2e8495793a6c757238d48c0979afd71595
                             </div>
                         </div>
+                    </div>
+                    <h5 class="text-center mt-4">Informações extras</h5>
+                    <hr class="border-bottom">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="peso" class="form-label"><strong>Peso(kilo):</strong></label>
+                                <input id="peso" name="peso" class="form-control" th:value="${user.peso}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="altura" class="form-label"><strong>Altura(metro):</strong></label>
+                                <input id="altura" name="altura" class="form-control" th:value="${user.altura}">
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="objetivo" class="form-label"><strong>Objetivo:</strong></label>
-                            <input id="objetivo" class="form-control" th:value="${user.objetivo}">
-                        </div>
+                    <div class="mb-3">
+                        <label for="objetivo" class="form-label"><strong>Objetivo:</strong></label>
+                        <input id="objetivo" name="objetivo" class="form-control" th:value="${user.objetivo}">
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
-                            <input id="observacoes" class="form-control" th:value="${user.observacoes}">
-                        </div>
-                    </form>
-                        <div class="text-center">
-                            <a type="button" class="btn btn-outline-secondary"
-                                th:href="@{/}"><strong>Voltar</strong></a>
-                            <button type="submit" class="btn btn-secondary"><strong>Atualizar</strong></button>
-                        </div>
-                    </form>
+                    <div class="mb-3">
+                        <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
+                        <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}">
+                    </div>
+                <div class="text-center">
+                    <a type="button" class="btn btn-outline-secondary"
+                       th:href="@{/}"><strong>Voltar</strong></a>
+                    <button type="submit" class="btn btn-secondary"><strong>Atualizar</strong></button>
                 </div>
+                </form>
             </div>
         </div>
-<<<<<<< HEAD
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/imask"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                IMask(document.getElementById('telefone'), { mask: '(00) 0000-0000' });
-                IMask(document.getElementById('celular'), { mask: '(00) 00000-0000' });
-                IMask(document.getElementById('cpf'), { mask: '000.000.000-00' });
-                IMask(document.getElementById('altura'), { mask: '0.00' });
-                IMask(document.getElementById('peso'), { mask: '000.00' });
-
-                const dataNascInput = document.getElementById('dataNasc');
-                const today = new Date();
-                const yyyy = today.getFullYear();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                const maxDate = `${yyyy}-${mm}-${dd}`;
-                dataNascInput.setAttribute('max', maxDate);
-            });
-        </script>
-    </body>
-=======
     </div>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/imask"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            IMask(document.getElementById('telefone'), { mask: '(00) 0000-0000' });
-            IMask(document.getElementById('celular'), { mask: '(00) 00000-0000' });
-            IMask(document.getElementById('cpf'), { mask: '000.000.000-00' });
-            IMask(document.getElementById('altura'), { mask: '0.00' });
-            IMask(document.getElementById('peso'), { mask: '000.00' });
->>>>>>> c7e0eb2e8495793a6c757238d48c0979afd71595
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/imask"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        IMask(document.getElementById('telefone'), {mask: '(00) 0000-0000'});
+        IMask(document.getElementById('celular'), {mask: '(00) 00000-0000'});
+        IMask(document.getElementById('cpf'), {mask: '000.000.000-00'});
+        IMask(document.getElementById('altura'), {mask: '0.00'});
 
-            const dataNascInput = document.getElementById('dataNasc');
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            const maxDate = `${yyyy}-${mm}-${dd}`;
-            dataNascInput.setAttribute('max', maxDate);
-        });
-    </script>
+        const peso = document.getElementById('peso');
+        peso.onkeyup = function(){
+            let v = this.value;
+            let integer = v.split('.')[0];
+            v = v.replace(/\D/, "");
+            v = v.replace(/^[0]+/, "");
+            if (v.length <= 3 || !integer) {
+                if (v.length === 1) v = '0.00' + v;
+                if (v.length === 2) v = '0.0' + v;
+                if (v.length === 3) v = '0.' + v;
+            } else {
+                if (v.length === 4) {
+                    v = '0' + v;
+                }
+                v = v.slice(0, 5); // Limitar a 5 caracteres
+                v = v.replace(/^(\d{1,3})(\d{2})$/, "$1.$2");
+            }
+            this.value = v;
+        }
+
+        const dataNascInput = document.getElementById('dataNasc');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const maxDate = `${yyyy}-${mm}-${dd}`;
+        dataNascInput.setAttribute('max', maxDate);
+    });
+
+
+</script>
 </body>
 </html>
