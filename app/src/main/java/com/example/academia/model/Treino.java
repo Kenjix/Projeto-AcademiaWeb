@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "treinos")
-public class Treino extends Cliente {
+public class Treino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -45,9 +45,8 @@ public class Treino extends Cliente {
     private Exercicio exercicioID;
 
     @ManyToOne
-    @JoinColumn(name = "FK_cliente")
-    private Cliente clienteID;
-
+    @JoinColumn(name = "user_id")
+    private User user;
 }
 
 

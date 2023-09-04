@@ -98,6 +98,11 @@ public class User implements UserDetails {
     @Column(length = 50)
     private String especialidade;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Treino> treinos = new ArrayList<>();
+
+
     public User(String email, String password, UserRole role, String matricula, String nome, String celular, Date dataNasc) {
         this.email = email;
         this.password = password;
