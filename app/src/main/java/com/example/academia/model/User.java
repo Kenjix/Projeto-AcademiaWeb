@@ -67,8 +67,9 @@ public class User implements UserDetails {
     @Column
     private boolean ativo;
 
-    @Column(columnDefinition = "TEXT")
-    private String foto;
+    @Lob
+    @Column(name = "foto", columnDefinition = "LONGBLOB")
+    private byte[] foto;
 
     @Lob
     private String observacoes;

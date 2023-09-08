@@ -23,7 +23,7 @@
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-12">
             <div class="row p-5 g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
-                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post" accept=".jpg, .jpeg, .png" enctype="multipart/form-data">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="userId" th:value="${user.id}"/>
                     <h5 class="text-center">Dados Pessoais</h5>
@@ -32,7 +32,8 @@
                         <div class="col-md-3 mb-3 d-flex align-items-center justify-content-center">
                             <input type="file" id="fotoInput" name="foto" accept="image/*" style="display: none;">
                             <label for="fotoInput">
-                                <img class="rounded-circle mx-4 fit-img" id="preview" th:src="@{/images/avatar_placeholder.png}" style="cursor: pointer">
+                                <img class="rounded-circle mx-4 fit-img preview" th:if="${imagemBase64}" th:src="'data:image/jpeg;base64,' + ${imagemBase64}" width="200" style="cursor: pointer"/>
+                                <img class="rounded-circle mx-4 fit-img placeholder" th:unless="${imagemBase64}" th:src="@{/images/avatar_placeholder.png}" width="200" style="cursor: pointer"/>
                             </label>
                         </div>
                         <div class="col-md-9">
@@ -159,8 +160,10 @@
     });
 
     document.getElementById('fotoInput').addEventListener('change', function () {
-        const preview = document.getElementById('preview');
         const file = this.files[0];
+        const preview = document.querySelector('.preview');
+        const placeholder = document.querySelector('.placeholder');
+
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
@@ -168,13 +171,17 @@
                 novaImagem.src = e.target.result;
                 novaImagem.onload = function () {
                     preview.src = novaImagem.src;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
                 };
             };
             reader.readAsDataURL(file);
         } else {
-            preview.src = "/images/avatar_placeholder.png";
+            preview.style.display = 'none';
+            placeholder.style.display = 'block';
         }
     });
+
 </script>
 </body>
 </html>
