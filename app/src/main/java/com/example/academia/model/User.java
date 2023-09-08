@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 60)
     private String nome;
 
-    @Column(unique = true, length = 11)
+    @Column(length = 11)
     private String cpf;
 
     @Column(unique = true, length = 10)
