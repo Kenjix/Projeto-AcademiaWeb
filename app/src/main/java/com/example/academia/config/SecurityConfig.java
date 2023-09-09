@@ -33,8 +33,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/images/**", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")                        
-                        .requestMatchers(HttpMethod.GET, "/cliente/listar").hasAnyRole("INSTRUTOR", "ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/cliente/cadastrar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasAnyRole("INSTRUTOR", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/usuario/cadastrar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .anyRequest().authenticated()

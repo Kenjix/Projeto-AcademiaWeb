@@ -1,9 +1,10 @@
 package com.example.academia.controller;
 
-import com.example.academia.model.DTO.TreinoDTO;
+import com.example.academia.model.DTO.TreinoRegisterDTO;
 import com.example.academia.model.Exercicio;
 import com.example.academia.model.Treino;
 import com.example.academia.model.User;
+import com.example.academia.repository.ExercicioRepository;
 import com.example.academia.repository.TreinoRepository;
 import com.example.academia.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -21,28 +22,33 @@ public class TreinoController {
 
     private final TreinoRepository treinoRepository;
     private final UserRepository userRepository;
+    private final ExercicioRepository exercicioRepository;
 
     @Autowired
-    public TreinoController(TreinoRepository treinoRepository, UserRepository userRepository) {
+    public TreinoController(TreinoRepository treinoRepository, UserRepository userRepository, ExercicioRepository exercicioRepository) {
         this.treinoRepository = treinoRepository;
         this.userRepository = userRepository;
+        this.exercicioRepository = exercicioRepository;
     }
 
     @GetMapping("/cadastrar")
-    public String cadastrarTreino(Model model) {
+    public String exibirFormCadastroTreino(Model model) {
         model.addAttribute("treino", new Treino());
+        List<Exercicio> exercicios = exercicioRepository.findAll();
+        model.addAttribute("exercicios", exercicios);
         return "formTreinoCadastro";
     }
 
     @PostMapping("/salvar")
-    public String salvarTreino(@ModelAttribute @Valid TreinoDTO treinoDTO) {
+    public String salvarTreino(@ModelAttribute @Valid TreinoRegisterDTO data) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             User user = userRepository.findByEmail(authentication.getName());
-            Treino treino = convertDTOToTreino(treinoDTO);
+            System.out.println("ID: " + data.exercicioId());
+            Treino treino = convertDTOToTreino(data);
             treino.setUser(user);
             treinoRepository.save(treino);
-            return "redirect:/treino/buscarPorUsuario/{userId}";
+            return "redirect:/";
         }
         return "redirect:/error403";
     }
@@ -57,11 +63,11 @@ public class TreinoController {
     }
 
     @PostMapping("/atualizar")
-    public String atualizarTreino(@ModelAttribute TreinoDTO treinoDTO) {
+    public String atualizarTreino(@ModelAttribute TreinoRegisterDTO treinoRegisterDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             User user = userRepository.findByEmail(authentication.getName());
-            Treino treino = convertDTOToTreino(treinoDTO);
+            Treino treino = convertDTOToTreino(treinoRegisterDTO);
             treino.setUser(user);
             treinoRepository.save(treino);
             return "redirect:/treino/buscarPorUsuario/{userId}";
@@ -82,18 +88,16 @@ public class TreinoController {
         return "listagemTreinosUsuario";
     }
 
-    private Treino convertDTOToTreino(TreinoDTO treinoDTO) {
+    private Treino convertDTOToTreino(TreinoRegisterDTO treinoRegisterDTO) {
         Treino treino = new Treino();
-        treino.setId(treinoDTO.id());
-        treino.setOrdem(treinoDTO.ordem());
-        treino.setSeries(treinoDTO.series());
-        treino.setRepeticao(treinoDTO.repeticao());
-        treino.setCarga(treinoDTO.carga());
-        treino.setTipoTreino(treinoDTO.tipoTreino());
-        treino.setTrocaTreino(treinoDTO.trocaTreino());
-        treino.setObservacao(treinoDTO.observacao());
-        treino.setExercicioID(treinoDTO.exercicioId());
-
+        treino.setOrdem(treinoRegisterDTO.ordem());
+        treino.setSeries(treinoRegisterDTO.series());
+        treino.setRepeticao(treinoRegisterDTO.repeticao());
+        treino.setCarga(treinoRegisterDTO.carga());
+        treino.setTipoTreino(treinoRegisterDTO.tipoTreino());
+        treino.setTrocaTreino(treinoRegisterDTO.trocaTreino());
+        treino.setObservacao(treinoRegisterDTO.observacao());
+        treino.setExercicio(exercicioRepository.findById(treinoRegisterDTO.exercicioId()).orElse(null));
         return treino;
     }
 }

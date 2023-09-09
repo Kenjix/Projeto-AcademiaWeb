@@ -13,7 +13,7 @@ import java.util.Date;
 public class Treino {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private int ordem;
@@ -37,12 +37,17 @@ public class Treino {
     @Column
     private String observacao;
 
-    @Column(columnDefinition = "BIT DEFAULT 1")
+    @Column
     private boolean ativo;
 
+    @PrePersist
+    private void onCreate() {
+        ativo = true;
+    }
+
     @ManyToOne
-    @JoinColumn(name = "FK_exercicios")
-    private Exercicio exercicioID;
+    @JoinColumn(name = "exercicio_id")
+    private Exercicio exercicio;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

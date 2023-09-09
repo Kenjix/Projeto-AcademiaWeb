@@ -27,6 +27,22 @@ public class UserController {
         this.imageService = imageService;
     }
 
+    //rota para o preenchimento do cadastro (formulário)
+    @GetMapping("/cadastrar")
+    public String cadastrarCliente() {
+        return "formClienteCadastro";
+    }
+
+    @GetMapping("/construcao")
+    public String showConstrucaoPage() {
+        return "construcao";
+    }
+
+    @GetMapping("/meustreinos")
+    public String showTreinosPage() {
+        return "listagemTreinosUsuario";
+    }
+
     @GetMapping("/perfil")
     public String exibirPerfil(Model model) throws IOException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
