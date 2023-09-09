@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Treinos</title>
+</head>
+<body>
+<h1>Lista de Treinos</h1>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Ordem</th>
+    <th>Séries</th>
+    <th>Repetição</th>
+    <th>Carga</th>
+    <th>Tipo de Treino</th>
+    <th>Troca de Treino</th>
+    <th>Observação</th>
+    <th>Ativo</th>
+    <th>Exercício</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="treino : ${treinos}">
+    <td th:text="${treino.id}"></td>
+    <td th:text="${treino.ordem}"></td>
+    <td th:text="${treino.series}"></td>
+    <td th:text="${treino.repeticao}"></td>
+    <td th:text="${treino.carga}"></td>
+    <td th:text="${treino.tipoTreino}"></td>
+    <td th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
+    <td th:text="${treino.observacao}"></td>
+    <td th:text="${treino.ativo} ? 'Sim' : 'Não'"></td>
+    <td th:text="${treino.exercicioID.nome}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

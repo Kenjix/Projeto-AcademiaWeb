@@ -32,7 +32,7 @@ public class ClienteControler {
 
     @GetMapping("/meustreinos")
     public String showTreinosPage() {
-        return "meustreinos";
+        return "listagemTreinosUsuario";
     }
 /* 
     //rota para pegar cliente especifico (detalhes)

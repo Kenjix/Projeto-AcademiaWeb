@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Treino</title>
+</head>
+<body>
+<h1>Editar Treino</h1>
+<form th:action="@{/treino/atualizar}" th:object="${treino}" method="post">
+  <input type="hidden" th:field="*{id}">
+
+  <label for="ordem">Ordem:</label>
+  <input type="number" th:field="*{ordem}" required><br>
+
+  <label for="series">Séries:</label>
+  <input type="text" th:field="*{series}"><br>
+
+  <label for="repeticao">Repetição:</label>
+  <input type="number" th:field="*{repeticao}" required><br>
+
+  <label for="carga">Carga:</label>
+  <input type="number" th:field="*{carga}" required><br>
+
+  <label for="tipoTreino">Tipo de Treino:</label>
+  <input type="text" th:field="*{tipoTreino}"><br>
+
+  <label for="trocaTreino">Troca de Treino:</label>
+  <input type="date" th:field="*{trocaTreino}"><br>
+
+  <label for="observacao">Observação:</label>
+  <textarea th:field="*{observacao}"></textarea><br>
+
+  <label for="ativo">Ativo:</label>
+  <input type="checkbox" th:field="*{ativo}"><br>
+
+  <label for="exercicioID">Exercício:</label>
+  <select th:field="*{exercicioID.id}">
+    <!-- Preencha com as opções de exercícios disponíveis -->
+    <!-- Exemplo: -->
+    <!-- <option th:each="exercicio : ${exercicios}" th:value="${exercicio.id}" th:text="${exercicio.nome}"></option> -->
+  </select><br>
+
+  <button type="submit">Atualizar</button>
+</form>
+</body>
+</html>
