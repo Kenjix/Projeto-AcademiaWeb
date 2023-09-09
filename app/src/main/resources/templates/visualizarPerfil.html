@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="my-3 mx-3 no-print">Meu Perfil</h2>
+    <h2>Meu Perfil</h2>
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-12">
             <div class="row p-5 g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
@@ -103,9 +103,9 @@
                         <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
                         <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}" disabled="">
                     </div>
-                </form></div>
-
-            <div class="text-center no-print">
+                </form>
+            </div>
+            <div class="mb-4 text-center no-print">
                 <div class="btn-group" role="group" aria-label="Group of buttons">
                     <a class="btn btn-outline-secondary" th:href="@{/}">
                         <i class="fa-solid fa-left"></i> Voltar
