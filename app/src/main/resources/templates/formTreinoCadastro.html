@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastrar Treino</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Treino</title>
 </head>
 <body>
 <h1>Cadastrar Treino</h1>
 <form th:action="@{/treino/salvar}" th:object="${treino}" method="post">
     <input type="hidden" th:field="*{id}">
-
+    <label for="tipoTreino">Tipo Treino:</label>
+    <input type="text" name="tipoTreino" id="tipoTreino" th:field="*{tipoTreino}" required="required">
+    <br>
     <label for="ordem">Ordem:</label>
     <input type="text" name="ordem" id="ordem" th:field="*{ordem}" required="required" autofocus="autofocus">
     <br>
     <label for="series">Series:</label>
     <input type="text" name="series" id="series" th:field="*{series}" required="required">
-    <br>
-    <label for="tipoTreino">Tipo Treino:</label>
-    <input type="text" name="tipoTreino" id="tipoTreino" th:field="*{tipoTreino}" required="required">
     <br>
     <label for="trocaTreino">Troca Treino:</label>
     <input type="date" name="trocaTreino" id="trocaTreino" th:field="*{trocaTreino}">
@@ -31,11 +30,38 @@
     <label for="observacao">Observacao:</label>
     <input type="text" name="observacao" id="observacao" th:field="*{observacao}" required="required">
     <br>
-    <select name="exercicioId" id="exercicios">
-        <option th:each="exercicio : ${exercicios}" th:value="${exercicio.id}" th:text="${exercicio.nome}"></option>
+    <label for="exercicios">Selecione os Exercícios:</label>
+    <select id="exercicios" name="exercicios" multiple>
+        <option th:each="exercicio : ${exercicios}"
+                th:value="${exercicio.id}"
+                th:text="${exercicio.nome}">
+        </option>
     </select>
+    <input type="hidden" id="exercicioIds" name="exercicioIds">
+    <button type="button" onclick="adicionarExercicios()">Adicionar</button>
+    <div id="exercicioNomes">
+        <!-- Nomes dos exercícios selecionados serão exibidos aqui -->
+    </div>
     <input type="submit" value="Cadastrar">
 </form>
+<script>
+    let exerciciosSelecionados = [];
+    let nomesExerciciosSelecionados = [];
 
+    function adicionarExercicios() {
+        let select = document.getElementById("exercicios");
+
+        for (var i = 0; i < select.options.length; i++) {
+            let option = select.options[i];
+            if (option.selected) {
+                exerciciosSelecionados.push(option.value);
+                nomesExerciciosSelecionados.push(option.text);
+            }
+        }
+
+        document.getElementById("exercicioIds").value = exerciciosSelecionados.join(",");
+        document.getElementById("exercicioNomes").textContent = "Exercícios Selecionados: " + nomesExerciciosSelecionados.join(", ");
+    }
+</script>
 </body>
 </html>

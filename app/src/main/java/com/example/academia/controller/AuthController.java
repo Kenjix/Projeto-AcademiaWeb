@@ -13,12 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping("auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -35,7 +36,6 @@ public class AuthController {
         this.matriculaService = matriculaService;
         this.passwordEncoder = passwordEncoder;
     }
-
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
@@ -50,12 +50,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@ModelAttribute("user") @Valid UserRegisterDTO data,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {            
-            return ResponseEntity.badRequest().build();
+    public String register(@ModelAttribute("user") @Valid UserRegisterDTO data, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "error400"; // Página de erro, se houver erros de validação
         } else if (userRepository.findByEmail(data.email()) != null) {
-            throw new EmailExistsException("Email ja cadastrado");
+            throw new EmailExistsException("Email já cadastrado");
         }
 
         String encryptedPassword = passwordEncoder.encode(data.password());
@@ -63,6 +62,7 @@ public class AuthController {
                 matriculaService.gerarProximaMatricula(), data.nome(),
                 data.celular().replaceAll("[\\s()-]", ""), data.dataNasc());
         userRepository.save(newUser);
-        return ResponseEntity.ok().build();
+
+        return "login"; // Redireciona para a página de login após o registro bem-sucedido
     }
 }

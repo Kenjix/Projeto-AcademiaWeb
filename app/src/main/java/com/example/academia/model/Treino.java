@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -45,9 +47,13 @@ public class Treino {
         ativo = true;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "exercicio_id")
-    private Exercicio exercicio;
+    @ManyToMany
+    @JoinTable(
+            name = "treino_exercicio",
+            joinColumns = @JoinColumn(name = "treino_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercicio_id")
+    )
+    private List<Exercicio> exercicios;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

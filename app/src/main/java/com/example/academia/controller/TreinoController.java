@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -44,14 +46,19 @@ public class TreinoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             User user = userRepository.findByEmail(authentication.getName());
-            System.out.println("ID: " + data.exercicioId());
             Treino treino = convertDTOToTreino(data);
             treino.setUser(user);
+            List<Long> exercicioIds = data.exercicioIds();
+            List<Exercicio> exerciciosSelecionados = new ArrayList<>();
+            exercicioRepository.findAllById(exercicioIds).forEach(exerciciosSelecionados::add);
+            treino.setExercicios(exerciciosSelecionados);
             treinoRepository.save(treino);
             return "redirect:/";
         }
         return "redirect:/error403";
     }
+
+
 
     @GetMapping("/editar/{id}")
     public String editarTreino(@PathVariable int id, Model model) {
@@ -97,7 +104,6 @@ public class TreinoController {
         treino.setTipoTreino(treinoRegisterDTO.tipoTreino());
         treino.setTrocaTreino(treinoRegisterDTO.trocaTreino());
         treino.setObservacao(treinoRegisterDTO.observacao());
-        treino.setExercicio(exercicioRepository.findById(treinoRegisterDTO.exercicioId()).orElse(null));
         return treino;
     }
 }
