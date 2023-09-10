@@ -20,7 +20,8 @@
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-12">
             <div class="row p-5 g-0 overflow-hidden flex-md-row mb-4 h-md-250 position-relative">
-                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post" accept=".jpg, .jpeg, .png" enctype="multipart/form-data">
+                <form th:action="@{/usuario/atualizar}" th:object="${user}" method="post" accept=".jpg, .jpeg, .png"
+                      enctype="multipart/form-data">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="userId" th:value="${user.id}"/>
                     <h5 class="text-center">Dados Pessoais</h5>
@@ -29,8 +30,11 @@
                         <div class="col-md-3 mb-3 d-flex align-items-center justify-content-center">
                             <input type="file" id="fotoInput" name="foto" accept="image/*" style="display: none;">
                             <label for="fotoInput">
-                                <img class="rounded-circle mx-4 fit-img preview" th:if="${imagemBase64}" th:src="'data:image/jpeg;base64,' + ${imagemBase64}" width="200" style="cursor: pointer"/>
-                                <img class="rounded-circle mx-4 fit-img preview" th:unless="${imagemBase64}" th:src="@{/images/avatar_placeholder.png}" width="200" style="cursor: pointer"/>
+                                <img class="rounded-circle mx-4 fit-img preview" th:if="${imagemBase64}"
+                                     th:src="'data:image/jpeg;base64,' + ${imagemBase64}" width="200"
+                                     style="cursor: pointer"/>
+                                <img class="rounded-circle mx-4 fit-img preview" th:unless="${imagemBase64}"
+                                     th:src="@{/images/avatar_placeholder.png}" width="200" style="cursor: pointer"/>
                             </label>
                         </div>
                         <div class="col-md-9">
@@ -40,7 +44,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="nome" class="form-label"><strong>Nome:</strong></label>
-                                <input id="nome" name="nome" class="form-control" th:value="${user.nome}" maxlength="50">
+                                <input id="nome" name="nome" class="form-control" th:value="${user.nome}"
+                                       maxlength="50">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -51,8 +56,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="dataNasc" class="form-label"><strong>Data de Nascimento:</strong></label>
-                                        <input type="date" id="dataNasc" name="dataNasc" class="form-control" th:value="${user.dataNasc}">
+                                        <label for="dataNasc" class="form-label"><strong>Data de
+                                            Nascimento:</strong></label>
+                                        <input type="date" id="dataNasc" name="dataNasc" class="form-control"
+                                               th:value="${user.dataNasc}">
                                     </div>
                                 </div>
                             </div>
@@ -66,18 +73,18 @@
                             <input id="email" class="form-control" th:value="${user.email}" maxlength="50"
                                    disabled>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
-                                    <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}">
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
+                                <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}">
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="celular" class="form-label"><strong>Celular:</strong></label>
-                                    <input id="celular" name="celular" class="form-control" th:value="${user.celular}">
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="celular" class="form-label"><strong>Celular:</strong></label>
+                                <input id="celular" name="celular" class="form-control" th:value="${user.celular}">
                             </div>
                         </div>
                     </div>
@@ -107,13 +114,13 @@
                         <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
                         <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}">
                     </div>
-                <div class="text-center">
-                    <div class="btn-group" role="group" aria-label="Group of buttons">
-                        <a type="button" class="btn btn-outline-secondary"
-                           th:href="@{/usuario/perfil}"><strong>Voltar</strong></a>
-                        <button type="submit" class="btn btn-secondary"><strong>Salvar</strong></button>
+                    <div class="text-center">
+                        <div class="btn-group" role="group" aria-label="Group of buttons">
+                            <a type="button" class="btn btn-outline-secondary"
+                               th:href="@{/usuario/perfil}"><strong>Voltar</strong></a>
+                            <button type="submit" class="btn btn-secondary"><strong>Salvar</strong></button>
+                        </div>
                     </div>
-                </div>
                 </form>
             </div>
         </div>
@@ -130,7 +137,7 @@
         IMask(document.getElementById('altura'), {mask: '0.00'});
 
         const peso = document.getElementById('peso');
-        peso.onkeyup = function(){
+        peso.onkeyup = function () {
             let v = this.value;
             let integer = v.split('.')[0];
             v = v.replace(/\D/, "");

@@ -26,30 +26,35 @@
                     <hr class="border-bottom">
                     <div class="row">
                         <div class="col-md-4 mb-3 d-flex align-items-center justify-content-center no-print">
-                            <img class="rounded-circle mx-4 fit-img" th:if="${imagemBase64}" th:src="'data:image/jpeg;base64,' + ${imagemBase64}" width="200" />
-                            <img class="rounded-circle mx-4 fit-img" th:unless="${imagemBase64}" th:src="@{/images/avatar_placeholder.png}" width="200" />
+                            <img class="rounded-circle mx-4 fit-img" th:if="${imagemBase64}"
+                                 th:src="'data:image/jpeg;base64,' + ${imagemBase64}" width="200"/>
+                            <img class="rounded-circle mx-4 fit-img" th:unless="${imagemBase64}"
+                                 th:src="@{/images/avatar_placeholder.png}" width="200"/>
                         </div>
                         <div class="col-md-8">
                             <div class="mb-3">
                                 <label for="matricula" class="form-label"><strong>Matrícula:</strong></label>
-                                <input id="matricula" name="matricula" class="form-control" th:value="${user.matricula}" disabled="">
+                                <input id="matricula" name="matricula" class="form-control" th:value="${user.matricula}"
+                                       disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="nome" class="form-label"><strong>Nome:</strong></label>
-                                <input id="nome" name="nome" class="form-control" th:value="${user.nome}" maxlength="50" disabled="">
+                                <input id="nome" name="nome" class="form-control" th:value="${user.nome}" maxlength="50"
+                                       disabled>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="cpf" class="form-label"><strong>CPF:</strong></label>
-                                        <input id="cpf" name="cpf" class="form-control" th:value="${user.cpf}" disabled="">
+                                        <input id="cpf" name="cpf" class="form-control" th:value="${user.cpf}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="dataNasc" class="form-label"><strong>Data de
                                             Nascimento:</strong></label>
-                                        <input type="date" id="dataNasc"  name="dataNasc" class="form-control" th:value="${user.dataNasc}" disabled="">
+                                        <input type="date" id="dataNasc" name="dataNasc" class="form-control"
+                                               th:value="${user.dataNasc}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -58,22 +63,25 @@
                     <h5 class="text-center mt-4">Contatos</h5>
                     <hr class="border-bottom">
                     <div class="row">
-                        <div class="mb-3">
+                        <div class="col-12 mb-3">
                             <label for="email" class="form-label"><strong>Email:</strong></label>
-                            <input id="email" name="email" class="form-control" th:value="${user.email}" maxlength="50" disabled="">
+                            <input id="email" name="email" class="form-control" th:value="${user.email}" maxlength="50"
+                                   disabled>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
-                                    <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}" disabled="">
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="telefone" class="form-label"><strong>Telefone:</strong></label>
+                                <input id="telefone" name="telefone" class="form-control" th:value="${user.telefone}"
+                                       disabled>
                             </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="celular" class="form-label"><strong>Celular:</strong></label>
-                                    <input id="celular" name="celular" class="form-control" th:value="${user.celular}" disabled="">
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="celular" class="form-label"><strong>Celular:</strong></label>
+                                <input id="celular" name="celular" class="form-control" th:value="${user.celular}"
+                                       disabled>
                             </div>
                         </div>
                     </div>
@@ -83,25 +91,27 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="peso" class="form-label"><strong>Peso(kilo):</strong></label>
-                                <input id="peso" name="peso" class="form-control" th:value="${user.peso}" disabled="">
+                                <input id="peso" name="peso" class="form-control" th:value="${user.peso}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="altura" class="form-label"><strong>Altura(metro):</strong></label>
-                                <input id="altura" name="altura" class="form-control" th:value="${user.altura}" disabled="">
+                                <input id="altura" name="altura" class="form-control" th:value="${user.altura}"
+                                       disabled>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="objetivo" class="form-label"><strong>Objetivo:</strong></label>
-                        <input id="objetivo" name="objetivo" class="form-control" th:value="${user.objetivo}" disabled="">
+                        <input id="objetivo" name="objetivo" class="form-control" th:value="${user.objetivo}" disabled>
                     </div>
 
                     <div class="mb-3">
                         <label for="observacoes" class="form-label"><strong>Observações:</strong></label>
-                        <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}" disabled="">
+                        <input id="observacoes" name="observacoes" class="form-control" th:value="${user.observacoes}"
+                               disabled>
                     </div>
                 </form>
             </div>
@@ -132,7 +142,7 @@
         IMask(document.getElementById('altura'), {mask: '0.00'});
 
         const peso = document.getElementById('peso');
-        peso.onkeyup = function(){
+        peso.onkeyup = function () {
             let v = this.value;
             let integer = v.split('.')[0];
             v = v.replace(/\D/, "");
