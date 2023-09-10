@@ -16,12 +16,10 @@ public class MVCController {
         //LOG.info("Return login");
         return "login";
     }
-
     @GetMapping(value = "/")
     public String home() {
         return "home";
     }
-
     @GetMapping(value = "/error400")
     public String error400() {
         return "error400";
