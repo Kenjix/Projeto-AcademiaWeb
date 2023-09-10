@@ -23,7 +23,6 @@ public class AdminController {
     @GetMapping("/gerenciamento")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String adminPage(Model model) {
-
         List<User> listUsers = (List<User>) userRepository.findByAtivoAndRole();
         model.addAttribute("users", listUsers);
         return "adminPage";

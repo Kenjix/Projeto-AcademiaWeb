@@ -17,8 +17,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByAtivoAndRole();
     @Query("SELECT u.matricula FROM User u ORDER BY u.created DESC LIMIT 1")
     String findLastMatricula();
-
     Optional<User> findById(Long id);
-
-
 }
