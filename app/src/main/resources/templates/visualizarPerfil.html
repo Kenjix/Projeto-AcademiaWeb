@@ -26,10 +26,9 @@
                     <hr class="border-bottom">
                     <div class="row">
                         <div class="col-md-4 mb-3 d-flex align-items-center justify-content-center no-print">
-                            <img class="rounded-circle mx-4 fit-img" th:if="${imagemBase64}"
-                                 th:src="'data:image/jpeg;base64,' + ${imagemBase64}" width="200"/>
-                            <img class="rounded-circle mx-4 fit-img" th:unless="${imagemBase64}"
-                                 th:src="@{/images/avatar_placeholder.png}" width="200"/>
+                            <img class="rounded-circle mx-4 fit-img" th:if="${model['imagemBase64_' + user.id] != null}"
+                                 th:src="'data:image/jpeg;base64,' + ${model['imagemBase64_' + user.id]}"
+                                 th:id="${user.id}">
                         </div>
                         <div class="col-md-8">
                             <div class="mb-3">

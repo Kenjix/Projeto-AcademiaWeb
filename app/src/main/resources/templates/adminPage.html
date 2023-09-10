@@ -2,9 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Lista</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/icone.png}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/script.js}"></script>
+    <title>Gym Genius</title>
     <style>
         body {
             background-color: #f8f9fa;
@@ -84,7 +91,6 @@
         <table class="table table table-striped table is-fullwidth">
             <thead>
             <tr>
-                <th>Foto</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Matrícula</th>
@@ -95,34 +101,30 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="cliente : ${clientes}">
+            <tr th:each="user : ${users}">
                 <td class="align-middle">
-                    <img class="rounded-circle fit-img" th:src="'data:image/jpeg;base64,' + ${cliente.foto}"
-                         alt="Foto do Cliente">
+                    <input class="transparent-input nome" th:value="${user.nome}" readonly>
                 </td>
                 <td class="align-middle">
-                    <input class="transparent-input nome" th:value="${cliente.nome}" readonly>
+                    <input class="transparent-input cpf" th:value="${user.cpf}" readonly>
                 </td>
                 <td class="align-middle">
-                    <input class="transparent-input cpf" th:value="${cliente.cpf}" readonly>
+                    <input class="transparent-input matricula" th:value="${user.matricula}" readonly>
                 </td>
                 <td class="align-middle">
-                    <input class="transparent-input matricula" th:value="${cliente.matricula}" readonly>
+                    <input class="transparent-input email" th:value="${user.email}" readonly>
                 </td>
                 <td class="align-middle">
-                    <input class="transparent-input email" th:value="${cliente.email}" readonly>
-                </td>
-                <td class="align-middle">
-                    <input class="transparent-input celular" th:value="${cliente.celular}" readonly>
+                    <input class="transparent-input celular" th:value="${user.celular}" readonly>
                 </td>
                 <td class="align-middle text-center">
-                    <a class="button" th:href="@{/cliente/ficha/{id}(id=${cliente.id})}"><i
+                    <a class="button" th:href="@{/cliente/ficha/{id}(id=${user.id})}"><i
                             class="bi bi-file-earmark-person"></i></a>
                 </td>
                 <td class="align-middle">
-                    <a class="button" th:href="@{/cliente/Cliente/{id}(id=${cliente.id})}"><i
+                    <a class="button" th:href="@{/cliente/Cliente/{id}(id=${user.id})}"><i
                             class="bi bi-pencil-square"></i></a>
-                    <a class="button" th:href="@{/cliente/excluir/{id}(id=${cliente.id})}"><i
+                    <a class="button" th:href="@{/cliente/excluir/{id}(id=${user.id})}"><i
                             class="bi bi-person-dash"></i></a>
                 </td>
             </tr>
