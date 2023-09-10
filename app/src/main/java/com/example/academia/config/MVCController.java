@@ -20,6 +20,10 @@ public class MVCController {
     public String home() {
         return "home";
     }
+    @GetMapping(value = "/admin/gerenciamento")
+    public String adminPage() {
+        return "adminPage";
+    }
     @GetMapping(value = "/error400")
     public String error400() {
         return "error400";
