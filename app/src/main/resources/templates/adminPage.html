@@ -17,12 +17,6 @@
             background-color: #f8f9fa;
         }
 
-        .fit-img {
-            width: 64px;
-            height: 64px;
-            object-fit: cover
-        }
-
         .transparent-input {
             background: none;
             border: none;
@@ -64,7 +58,9 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{/usuario/perfil}">Meu Perfil</a></li>
                         <li><a class="dropdown-item" th:href="@{/treino/cadastrar}">Cadastrar treino</a></li>
-                        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a class="dropdown-item" th:href="@{/admin/gerenciamento}">Gerenciamento</a></li>
+                        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a class="dropdown-item"
+                                                                                               th:href="@{/admin/gerenciamento}">Gerenciamento</a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -81,12 +77,12 @@
         <div class="col-6">
             <h4 class="my-4">Clientes</h4>
             <div class="mb-3">
-                <button type="button" class="btn btn-info">Ativos</button>
-                <button type="button" class="btn btn-outline-secondary">Inativos</button>
+                <button type="button" class="btn btn-info" id="btnAtivos">Ativos</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnInativos">Inativos</button>
             </div>
         </div>
     </div>
-    <h4 class="my-4">Ativos</h4>
+    <h4 class="my-4" id="tituloTabela">Ativos</h4>
     <div class="table-container">
         <table class="table table table-striped table is-fullwidth">
             <thead>
@@ -143,7 +139,53 @@
         $(".cpf").each(function () {
             IMask(this, {mask: '000.000.000-00'});
         });
+        $("#btnInativos").click(function () {
+            $("#btnInativos").removeClass("btn-outline-secondary").addClass("btn-info");
+            $("#btnAtivos").removeClass("btn-info").addClass("btn-outline-secondary");
+            $("#tituloTabela").text("Inativos");
+            $.ajax({
+                url: "/admin/clientes/inativos",
+                type: "GET",
+                success: function (data) {
+                    updateTable(data);
+                }
+            });
+        });
+        $("#btnAtivos").click(function () {
+            $("#btnAtivos").removeClass("btn-outline-secondary").addClass("btn-info");
+            $("#btnInativos").removeClass("btn-info").addClass("btn-outline-secondary");
+            $("#tituloTabela").text("Ativos");
+            $.ajax({
+                url: "/admin/clientes/ativos",
+                type: "GET",
+                success: function (data) {
+                    updateTable(data);
+                }
+            });
+        });
     });
+    function updateTable(data) {
+        $("tbody").empty();
+        $.each(data, function (index, user) {
+            var row = "<tr>" +
+                "<td class='align-middle'><input class='transparent-input nome' value='" + user.nome + "' readonly></td>" +
+                "<td class='align-middle'><input class='transparent-input cpf' value='" + user.cpf + "' readonly></td>" +
+                "<td class='align-middle'><input class='transparent-input matricula' value='" + user.matricula + "' readonly></td>" +
+                "<td class='align-middle'><input class='transparent-input email' value='" + user.email + "' readonly></td>" +
+                "<td class='align-middle'><input class='transparent-input celular' value='" + user.celular + "' readonly></td>" +
+                "<td class='align-middle text-center'><a class='button' href='/cliente/ficha/" + user.id + "'><i class='bi bi-file-earmark-person'></i></a></td>" +
+                "<td class='align-middle'><a class='button' href='/cliente/Cliente/" + user.id + "'><i class='bi bi-pencil-square'></i></a>" +
+                "<a class='button' href='/cliente/excluir/" + user.id + "'><i class='bi bi-person-dash'></i></a></td>" +
+                "</tr>";
+            $("tbody").append(row);
+        });
+        $(".celular").each(function () {
+            IMask(this, {mask: '(00) 00000-0000'});
+        });
+        $(".cpf").each(function () {
+            IMask(this, {mask: '000.000.000-00'});
+        });
+    }
 </script>
 </body>
 </html>
