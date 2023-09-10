@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous">
+            crossorigin="anonymous"></script>
     <script th:src="@{/js/script.js}"></script>
     <title>Gym Genius</title>
 </head>
@@ -18,8 +18,8 @@
     <nav>
         <div class="mt-2 mb-2 d-inline d-flex justify-content-between no-print">
             <div class="d-flex align-items-center mx-2">
-                <a href="http://localhost:8080"><strong class="d-inline-block mb-2 text-primary-emphasis"><img
-                        src="/images/icone.png" width="20">&nbsp;GymGenius</strong></a>
+                <a th:href="@{/}"><strong class="d-inline-block mb-2 text-primary-emphasis"><img
+                        th:src="@{/images/icone.png}" width="20">&nbsp;GymGenius</strong></a>
             </div>
             <div class="d-flex">
                 <li class="nav-item dropdown list-unstyled">
