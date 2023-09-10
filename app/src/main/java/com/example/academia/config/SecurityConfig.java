@@ -25,6 +25,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/images/**", "/css/**", "/js/**", "/WEB-INF/views/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -33,11 +38,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/usuario/listar").hasAnyRole("INSTRUTOR", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/usuario/cadastrar").permitAll()
                         .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
-                        .permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

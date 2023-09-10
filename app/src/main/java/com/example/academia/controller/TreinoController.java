@@ -61,7 +61,7 @@ public class TreinoController {
 
 
     @GetMapping("/editar/{id}")
-    public String editarTreino(@PathVariable int id, Model model) {
+    public String editarTreino(@PathVariable Long id, Model model) {
         Treino treino = treinoRepository.findById(id).orElse(null);
         if (treino != null) {
             model.addAttribute("treino", treino);
@@ -83,15 +83,19 @@ public class TreinoController {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluirTreino(@PathVariable int id) {
+    public String excluirTreino(@PathVariable Long id) {
         treinoRepository.deleteById(id);
         return "redirect:/treino/buscarPorUsuario/{userId}";
     }
 
-    @GetMapping("/buscarPorUsuario/{userId}")
-    public String buscarTreinosPorUsuario(@PathVariable Long userId, Model model) {
-        List<Treino> treinos = treinoRepository.findByUserId(userId);
-        model.addAttribute("treinos", treinos);
+    @GetMapping("/meustreinos")
+    public String buscarTreinosPorUsuario(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            User user = userRepository.findByEmail(authentication.getName());
+            List<Treino> treinos = treinoRepository.findByUserId(user.getId());
+            model.addAttribute("treinos", treinos);
+        }
         return "listagemTreinosUsuario";
     }
 

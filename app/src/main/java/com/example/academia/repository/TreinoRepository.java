@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface TreinoRepository extends CrudRepository<Treino, Integer> {
-    @Query("SELECT t FROM Treino t WHERE t.user.id = :userId")
-    List<Treino> findByUserId(@Param("userId") Long userId);
+public interface TreinoRepository extends CrudRepository<Treino, Long> {
+    List<Treino> findByUserId(Long userId);
 }
