@@ -3,6 +3,7 @@ package com.example.academia.controller;
 import com.example.academia.model.DTO.TreinoRegisterDTO;
 import com.example.academia.model.Exercicio;
 import com.example.academia.model.Treino;
+import com.example.academia.model.TreinoExercicio;
 import com.example.academia.model.User;
 import com.example.academia.repository.ExercicioRepository;
 import com.example.academia.repository.TreinoRepository;
@@ -51,7 +52,17 @@ public class TreinoController {
             List<Long> exercicioIds = data.exercicioIds();
             List<Exercicio> exerciciosSelecionados = new ArrayList<>();
             exercicioRepository.findAllById(exercicioIds).forEach(exerciciosSelecionados::add);
-            treino.setExercicios(exerciciosSelecionados);
+            List<TreinoExercicio> detalhesExercicios = new ArrayList<>();
+            for (Exercicio exercicio : exerciciosSelecionados) {
+                TreinoExercicio detalhes = new TreinoExercicio();
+                detalhes.setTreino(treino);
+                detalhes.setExercicio(exercicio);
+                detalhes.setOrdem(data.ordem());
+                detalhes.setRepeticao(data.repeticao());
+                detalhes.setCarga(data.carga());
+                detalhesExercicios.add(detalhes);
+            }
+            treino.setDetalhesExercicios(detalhesExercicios);
             treinoRepository.save(treino);
             return "redirect:/";
         }
@@ -101,10 +112,6 @@ public class TreinoController {
 
     private Treino convertDTOToTreino(TreinoRegisterDTO treinoRegisterDTO) {
         Treino treino = new Treino();
-        treino.setOrdem(treinoRegisterDTO.ordem());
-        treino.setSeries(treinoRegisterDTO.series());
-        treino.setRepeticao(treinoRegisterDTO.repeticao());
-        treino.setCarga(treinoRegisterDTO.carga());
         treino.setTipoTreino(treinoRegisterDTO.tipoTreino());
         treino.setTrocaTreino(treinoRegisterDTO.trocaTreino());
         treino.setObservacao(treinoRegisterDTO.observacao());
