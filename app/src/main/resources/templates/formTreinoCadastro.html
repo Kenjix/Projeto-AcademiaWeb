@@ -1,49 +1,97 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{template :: layout(~{::body})}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous">
+    </script>
     <title>Cadastrar Treino</title>
 </head>
 <body>
-<h1>Cadastrar Treino</h1>
-<form th:action="@{/treino/salvar}" th:object="${treino}" method="post">
-    <input type="hidden" th:field="*{id}">
-    <label for="tipoTreino">Tipo Treino:</label>
-    <input type="text" name="tipoTreino" id="tipoTreino" th:field="*{tipoTreino}" required="required">
-    <br>
-    <label for="ordem">Ordem:</label>
-    <input type="text" name="ordem" id="ordem" th:field="*{ordem}" required="required" autofocus="autofocus">
-    <br>
-    <label for="series">Series:</label>
-    <input type="text" name="series" id="series" th:field="*{series}" required="required">
-    <br>
-    <label for="trocaTreino">Troca Treino:</label>
-    <input type="date" name="trocaTreino" id="trocaTreino" th:field="*{trocaTreino}">
-    <br>
-    <label for="repeticao">Repeticao:</label>
-    <input type="text" name="repeticao" id="repeticao" th:field="*{repeticao}" required="required">
-    <br>
-    <label for="carga">Carga:</label>
-    <input type="text" name="carga" id="carga" th:field="*{carga}" required="required">
-    <br>
-    <label for="observacao">Observacao:</label>
-    <input type="text" name="observacao" id="observacao" th:field="*{observacao}" required="required">
-    <br>
-    <label for="exercicios">Selecione os Exercícios:</label>
-    <select id="exercicios" name="exercicios" multiple>
-        <option th:each="exercicio : ${exercicios}"
-                th:value="${exercicio.id}"
-                th:text="${exercicio.nome}">
-        </option>
-    </select>
-    <input type="hidden" id="exercicioIds" name="exercicioIds">
-    <button type="button" onclick="adicionarExercicios()">Adicionar</button>
-    <div id="exercicioNomes">
-        <!-- Nomes dos exercícios selecionados serão exibidos aqui -->
+<div class="container">
+    <h1 class="my-2">Criar um novo treino</h1>
+    <div class="alert alert-success" role="alert">
+        * Grupo A: Triceps, Peito e Panturilha<br>
+        * Grupo B: Biceps, Costas e Abdomen<br>
+        * Grupo C: Ombros, Posteriores e Quadriceps<br>
     </div>
-    <input type="submit" value="Cadastrar">
-</form>
+    <form th:action="@{/treino/salvar}" th:object="${treino}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="mb-3">
+            <label for="tipoTreino" class="form-label">Selecione o grupo de treino:</label>
+            <select class="form-select" name="tipoTreino" id="tipoTreino" th:field="*{tipoTreino}" required="required">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="exercicios" class="form-label">Selecione os Exercícios:</label>
+            <select id="exercicios" class="form-select" name="exercicios" multiple>
+                <option th:each="exercicio : ${exercicios}"
+                        th:value="${exercicio.id}"
+                        th:text="${exercicio.nome}">
+                </option>
+            </select>
+        </div>
+
+        <div clas="d-flex">
+            <div class="mb-3">
+                <input type="hidden" id="exercicioIds" name="exercicioIds">
+                <button type="button" class="btn btn-primary ml-auto" onclick="adicionarExercicios()">
+                    <i class="fa fa-plus"></i> Adicionar
+                </button>
+                <div id="exercicioNomes">
+                    <!-- Nomes dos exercícios selecionados serão exibidos aqui -->
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="ordem" class="form-label">Ordem:</label>
+            <input type="text" class="form-control" name="ordem" id="ordem" th:field="*{ordem}" required="required" autofocus="autofocus">
+        </div>
+
+        <div class="row">
+
+            <div class=" col mb-3">
+                <label for="series" class="form-label">Series:</label>
+                <input type="text" class="form-control" name="series" id="series" th:field="*{series}" required="required">
+            </div>
+
+            <div class="col mb-3">
+                <label for="repeticao" class="form-label">Repetição:</label>
+                <input type="text" class="form-control" name="repeticao" id="repeticao" th:field="*{repeticao}" required="required">
+            </div>
+
+
+            <div class="col mb-3">
+                <label for="carga" class="form-label">Carga:</label>
+                <input type="text" class="form-control" name="carga" id="carga" th:field="*{carga}" required="required">
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="observacao" class="form-label">Observação:</label>
+            <input type="text" class="form-control" name="observacao" id="observacao" th:field="*{observacao}" required="required">
+        </div>
+
+        <div class="mb-3">
+            <label for="trocaTreino" class="form-label">Previsão de troca de treino:</label>
+            <input type="date" class="form-control" name="trocaTreino" id="trocaTreino" th:field="*{trocaTreino}">
+        </div>
+
+        <div class="d-flex justify-content-center mt-3 mb-3">
+            <input class="btn btn-success" type="submit" value="Cadastrar">
+        </div>
+    </form>
+</div>
 <script>
     let exerciciosSelecionados = [];
     let nomesExerciciosSelecionados = [];
