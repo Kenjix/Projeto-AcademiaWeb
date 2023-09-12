@@ -1,41 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{template :: layout(~{::body})}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <title>Lista de Treinos</title>
 </head>
 <body>
-<h1>Lista de Treinos</h1>
-<table>
-  <thead>
-  <tr>
-    <th>Tipo de Treino</th>
-    <th>Ordem</th>
-    <th>Séries</th>
-    <th>Repetição</th>
-    <th>Carga</th>
-    <th>Troca de Treino</th>
-    <th>Observação</th>
-    <th>Exercícios</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="treino : ${treinos}">
-    <td th:text="${treino.tipoTreino}"></td>
-    <td th:text="${treino.ordem}"></td>
-    <td th:text="${treino.series}"></td>
-    <td th:text="${treino.repeticao}"></td>
-    <td th:text="${treino.carga}"></td>
-    <td th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
-    <td th:text="${treino.observacao}"></td>
-    <td>
-      <ul>
-        <li th:each="exercicio : ${treino.exercicios}" th:text="${exercicio.nome}"></li>
-      </ul>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="container">
+  <h1 class="my-4">Lista de Treinos</h1>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th class="text-center align-middle">Tipo de Treino</th>
+        <th class="text-center align-middle">Ordem</th>
+        <th class="text-center align-middle">Séries</th>
+        <th class="text-center align-middle">Repetição</th>
+        <th class="text-center align-middle">Carga</th>
+        <th class="text-center align-middle">Troca de Treino</th>
+        <th class="text-center align-middle">Observação</th>
+        <th class="text-center align-middle">Exercícios</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="treino : ${treinos}">
+        <td class="text-center align-middle" th:text="${treino.tipoTreino}"></td>
+        <td class="text-center align-middle" th:text="${treino.ordem}"></td>
+        <td class="text-center align-middle" th:text="${treino.series}"></td>
+        <td class="text-center align-middle" th:text="${treino.repeticao}"></td>
+        <td class="text-center align-middle" th:text="${treino.carga}"></td>
+        <td class="text-center align-middle" th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
+        <td class="text-center align-middle" th:text="${treino.observacao}"></td>
+        <td>
+          <ul>
+            <li th:each="exercicio : ${treino.exercicios}" th:text="${exercicio.nome}"></li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 </body>
 </html>

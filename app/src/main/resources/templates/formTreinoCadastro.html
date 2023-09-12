@@ -1,37 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:replace="~{template :: layout(~{::body})}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Treino</title>
+    <title>Início</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous">
+    </script>
 </head>
 <body>
-<h1>Cadastrar Treino</h1>
-<form th:action="@{/treino/salvar}" th:object="${treino}" method="post">
-    <input type="hidden" th:field="*{id}">
-    <label for="tipoTreino">Tipo Treino:</label>
-    <input type="text" name="tipoTreino" id="tipoTreino" th:field="*{tipoTreino}" required="required">
-    <br>
-    <label for="trocaTreino">Troca Treino:</label>
-    <input type="date" name="trocaTreino" id="trocaTreino" th:field="*{trocaTreino}">
-
-    <label for="observacao">Observacao:</label>
-    <input type="text" name="observacao" id="observacao" th:field="*{observacao}" required="required">
-    <br>
-    <label for="exercicios">Selecione os Exercícios:</label>
-    <select id="exercicios" name="exercicios" multiple>
-        <option th:each="exercicio : ${exercicios}"
-                th:value="${exercicio.id}"
-                th:text="${exercicio.nome}">
-        </option>
-    </select>
-    <input type="hidden" id="exercicioIds" name="exercicioIds">
-    <button type="button" onclick="adicionarExercicios()">Adicionar</button>
-    <div id="exercicioNomes">
-        <!-- Nomes dos exercícios selecionados serão exibidos aqui -->
+<div class="container">
+    <h1 class="my-2">Criar um novo treino</h1>
+    <div class="alert alert-success" role="alert">
+        * Grupo A: Triceps, Peito e Panturilha<br>
+        * Grupo B: Biceps, Costas e Abdomen<br>
+        * Grupo C: Ombros, Posteriores e Quadriceps<br>
     </div>
-    <input type="submit" value="Cadastrar">
-</form>
+
+    <form th:action="@{/treino/salvar}" method="post">
+        <input type="hidden" name="id">
+        <div class="mb-3">
+            <label for="tipoTreino" class="form-label">Selecione o grupo de treino:</label>
+            <select class="form-select" name="tipoTreino" id="tipoTreino" required="required">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="exercicioIds" class="form-label">Selecione os Exercícios:</label>
+            <input type="hidden" id="exercicioIds" name="exercicioIds">
+            <select id="exercicios" class="form-select" name="exercicios" multiple>
+                <option th:each="exercicio : ${exercicios}"
+                        th:value="${exercicio.id}"
+                        th:text="${exercicio.nome}">
+                </option>
+            </select>
+        </div>
+
+
+        <div class="d-flex">
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary ml-auto" onclick="adicionarExercicios()">
+                    <i class="fa fa-plus"></i> Adicionar
+                </button>
+                <div id="exercicioNomes">
+                    <!--nomes dos exercicios selecionados serão exibidos aqui-->
+                </div>
+            </div>
+        </div>
+
+        <!-- Novos campos para ordem, série, repetição e carga para cada exercício selecionado -->
+        <div id="camposExercicios"></div>
+
+        <!-- Restante dos campos -->
+
+        <div class="mb-3">
+            <label for="observacao" class="form-label">Observação:</label>
+            <input type="text" class="form-control" name="observacao" id="observacao" required="required">
+        </div>
+
+        <div class="mb-3">
+            <label for="trocaTreino" class="form-label">Previsão de troca de treino:</label>
+            <input type="date" class="form-control" name="trocaTreino" id="trocaTreino">
+        </div>
+
+        <div class="d-flex justify-content-center mt-3 mb-3">
+            <input class="btn btn-success" type="submit" value="Cadastrar">
+        </div>
+    </form>
+</div>
 <script>
     let exerciciosSelecionados = [];
     let nomesExerciciosSelecionados = [];
@@ -46,9 +87,34 @@
                 nomesExerciciosSelecionados.push(option.text);
             }
         }
-
         document.getElementById("exercicioIds").value = exerciciosSelecionados.join(",");
         document.getElementById("exercicioNomes").textContent = "Exercícios Selecionados: " + nomesExerciciosSelecionados.join(", ");
+        let camposExercicios = document.getElementById("camposExercicios");
+        camposExercicios.innerHTML = "";
+
+        exerciciosSelecionados.forEach((exercicioId, index) => {
+            let exercicioNome = nomesExerciciosSelecionados[index];
+            camposExercicios.innerHTML += `
+    <div class="row">
+        <input type="hidden" id="exercicioIds" name="exercicios[${index}].id">
+        <div class="col mb-3 text-center">
+            <label for="ordem_${exercicioId}" class="form-label"><strong>Ordem para ${exercicioNome}:</strong></label>
+            <input type="text" class="form-control mx-auto" name="exercicios[${index}].ordem" required="required">
+        </div>
+        <div class="col mb-3 text-center">
+            <label for="serie_${exercicioId}" class="form-label"><strong>Serie para ${exercicioNome}:</strong></label>
+            <input type="text" class="form-control mx-auto" name="exercicios[${index}].serie" required="required">
+        </div>
+        <div class="col mb-3 text-center">
+            <label for="repeticao_${exercicioId}" class="form-label"><strong>Repetição para ${exercicioNome}:</strong></label>
+            <input type="text" class="form-control mx-auto" name="exercicios[${index}].repeticao" required="required">
+        </div>
+        <div class="col mb-3 text-center">
+            <label for="carga_${exercicioId}" class="form-label"><strong>Carga para ${exercicioNome}:</strong></label>
+            <input type="text" class="form-control mx-auto" name="exercicios[${index}].carga" required="required">
+        </div>
+    </div>`;
+        });
     }
 </script>
 </body>

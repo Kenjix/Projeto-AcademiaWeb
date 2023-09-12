@@ -14,9 +14,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,33 +43,25 @@ public class TreinoController {
     }
 
     @PostMapping("/salvar")
-    public String salvarTreino(@ModelAttribute @Valid TreinoRegisterDTO data) {
+    public String salvarTreino(@ModelAttribute @Valid TreinoRegisterDTO data, @RequestParam List<TreinoExercicio> exercicios) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
+            for (TreinoExercicio exercicio : exercicios) {
+                System.out.println("Exercício - id: " + exercicio.getId());
+                System.out.println("Exercício - Ordem: " + exercicio.getOrdem());
+                System.out.println("Exercício - Série: " + exercicio.getSeries());
+                System.out.println("Exercício - Repetição: " + exercicio.getRepeticao());
+                System.out.println("Exercício - Carga: " + exercicio.getCarga());
+            }
             User user = userRepository.findByEmail(authentication.getName());
             Treino treino = convertDTOToTreino(data);
             treino.setUser(user);
-            List<Long> exercicioIds = data.exercicioIds();
-            List<Exercicio> exerciciosSelecionados = new ArrayList<>();
-            exercicioRepository.findAllById(exercicioIds).forEach(exerciciosSelecionados::add);
-            List<TreinoExercicio> detalhesExercicios = new ArrayList<>();
-            for (Exercicio exercicio : exerciciosSelecionados) {
-                TreinoExercicio detalhes = new TreinoExercicio();
-                detalhes.setTreino(treino);
-                detalhes.setExercicio(exercicio);
-                detalhes.setOrdem(data.ordem());
-                detalhes.setRepeticao(data.repeticao());
-                detalhes.setCarga(data.carga());
-                detalhesExercicios.add(detalhes);
-            }
-            treino.setDetalhesExercicios(detalhesExercicios);
+            treino.setDetalhesExercicios(exercicios);
             treinoRepository.save(treino);
             return "redirect:/";
         }
         return "redirect:/error403";
     }
-
-
 
     @GetMapping("/editar/{id}")
     public String editarTreino(@PathVariable Long id, Model model) {
