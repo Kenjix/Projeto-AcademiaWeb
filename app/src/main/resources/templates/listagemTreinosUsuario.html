@@ -8,35 +8,38 @@
 </head>
 <body>
 <div class="container">
-  <h1 class="my-4">Lista de Treinos</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h3 class="my-4">Lista de Treinos</h3>
+    <a th:href="@{/treino/cadastrar}"><button type="button" class="btn btn-success">Criar novo treino</button></a>
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="table-dark">
       <tr>
         <th class="text-center align-middle">Tipo de Treino</th>
         <th class="text-center align-middle">Ordem</th>
+        <th class="text-center align-middle">Exercícios</th>
         <th class="text-center align-middle">Séries</th>
         <th class="text-center align-middle">Repetição</th>
         <th class="text-center align-middle">Carga</th>
         <th class="text-center align-middle">Troca de Treino</th>
         <th class="text-center align-middle">Observação</th>
-        <th class="text-center align-middle">Exercícios</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="treino : ${treinos}">
         <td class="text-center align-middle" th:text="${treino.tipoTreino}"></td>
         <td class="text-center align-middle" th:text="${treino.ordem}"></td>
-        <td class="text-center align-middle" th:text="${treino.series}"></td>
-        <td class="text-center align-middle" th:text="${treino.repeticao}"></td>
-        <td class="text-center align-middle" th:text="${treino.carga}"></td>
-        <td class="text-center align-middle" th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
-        <td class="text-center align-middle" th:text="${treino.observacao}"></td>
         <td>
           <ul>
             <li th:each="exercicio : ${treino.exercicios}" th:text="${exercicio.nome}"></li>
           </ul>
         </td>
+        <td class="text-center align-middle" th:text="${treino.series}"></td>
+        <td class="text-center align-middle" th:text="${treino.repeticao}"></td>
+        <td class="text-center align-middle" th:text="${treino.carga}"></td>
+        <td class="text-center align-middle" th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
+        <td class="text-center align-middle" th:text="${treino.observacao}"></td>
       </tr>
       </tbody>
     </table>
