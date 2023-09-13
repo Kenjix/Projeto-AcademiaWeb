@@ -7,10 +7,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@Entity
 @Getter
 @Setter
+@Entity
 @Table(name = "exercicios")
 public class Exercicio {
     @Id
@@ -22,4 +21,7 @@ public class Exercicio {
 
     @Column(length = 50)
     private String grupoMuscular;
+
+    @OneToMany(mappedBy = "exercicio", cascade = CascadeType.ALL)
+    private List<TreinoExercicio> treinoExercicios;
 }

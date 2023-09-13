@@ -1,22 +1,19 @@
 package com.example.academia.controller;
 
+import com.example.academia.model.*;
 import com.example.academia.model.DTO.TreinoRegisterDTO;
-import com.example.academia.model.Exercicio;
-import com.example.academia.model.Treino;
-import com.example.academia.model.TreinoExercicio;
-import com.example.academia.model.User;
 import com.example.academia.repository.ExercicioRepository;
+import com.example.academia.repository.TreinoExercicioRepository;
 import com.example.academia.repository.TreinoRepository;
 import com.example.academia.repository.UserRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,42 +23,61 @@ public class TreinoController {
     private final TreinoRepository treinoRepository;
     private final UserRepository userRepository;
     private final ExercicioRepository exercicioRepository;
+    private final TreinoExercicioRepository treinoExercicioRepository;
 
     @Autowired
-    public TreinoController(TreinoRepository treinoRepository, UserRepository userRepository, ExercicioRepository exercicioRepository) {
+    public TreinoController(TreinoRepository treinoRepository, UserRepository userRepository, ExercicioRepository exercicioRepository, TreinoExercicioRepository treinoExercicioRepository) {
         this.treinoRepository = treinoRepository;
         this.userRepository = userRepository;
         this.exercicioRepository = exercicioRepository;
+        this.treinoExercicioRepository = treinoExercicioRepository;
     }
 
     @GetMapping("/cadastrar")
     public String exibirFormCadastroTreino(Model model) {
-        model.addAttribute("treino", new Treino());
         List<Exercicio> exercicios = exercicioRepository.findAll();
+        TreinoListWrapper treinoListWrapper = new TreinoListWrapper();
+        treinoListWrapper.setExerciciosList(new ArrayList<>());
+        model.addAttribute("treinoListWrapper", treinoListWrapper);
         model.addAttribute("exercicios", exercicios);
         return "formTreinoCadastro";
     }
-
     @PostMapping("/salvar")
-    public String salvarTreino(@ModelAttribute @Valid TreinoRegisterDTO data, @RequestParam List<TreinoExercicio> exercicios) {
+    public String salvarTreino(@ModelAttribute TreinoRegisterDTO treinoRegisterDTO,
+                               @ModelAttribute TreinoListWrapper treinoListWrapper) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
-            for (TreinoExercicio exercicio : exercicios) {
-                System.out.println("Exercício - id: " + exercicio.getId());
-                System.out.println("Exercício - Ordem: " + exercicio.getOrdem());
-                System.out.println("Exercício - Série: " + exercicio.getSeries());
-                System.out.println("Exercício - Repetição: " + exercicio.getRepeticao());
-                System.out.println("Exercício - Carga: " + exercicio.getCarga());
-            }
             User user = userRepository.findByEmail(authentication.getName());
-            Treino treino = convertDTOToTreino(data);
+            Treino treino = new Treino();
+            treino.setTipoTreino(treinoRegisterDTO.getTipoTreino());
+            treino.setTrocaTreino(treinoRegisterDTO.getTrocaTreino());
+            treino.setObservacao(treinoRegisterDTO.getObservacao());
             treino.setUser(user);
-            treino.setDetalhesExercicios(exercicios);
-            treinoRepository.save(treino);
+            Treino savedTreino = treinoRepository.save(treino);
+            List<TreinoExercicio> exercicios = convertExerciciosHolderList(treinoListWrapper.getExerciciosList());
+            for (TreinoExercicio exercicio : exercicios) {
+                exercicio.setTreino(savedTreino);
+            }
+            treinoExercicioRepository.saveAll(exercicios);
             return "redirect:/";
         }
         return "redirect:/error403";
     }
+    private List<TreinoExercicio> convertExerciciosHolderList(List<ExerciciosHolder> exerciciosHolderList) {
+        List<TreinoExercicio> treinoExercicios = new ArrayList<>();
+        for (ExerciciosHolder exerciciosHolder : exerciciosHolderList) {
+            TreinoExercicio treinoExercicio = new TreinoExercicio();
+            treinoExercicio.setOrdem(exerciciosHolder.getOrdem());
+            treinoExercicio.setSeries(exerciciosHolder.getSeries());
+            treinoExercicio.setRepeticao(exerciciosHolder.getRepeticao());
+            treinoExercicio.setCarga(exerciciosHolder.getCarga());
+            Exercicio exercicio = exercicioRepository.findById(exerciciosHolder.getExercicioId()).orElse(null);
+            treinoExercicio.setExercicio(exercicio);
+            treinoExercicios.add(treinoExercicio);
+        }
+        return treinoExercicios;
+    }
+
 
     @GetMapping("/editar/{id}")
     public String editarTreino(@PathVariable Long id, Model model) {
@@ -104,9 +120,9 @@ public class TreinoController {
 
     private Treino convertDTOToTreino(TreinoRegisterDTO treinoRegisterDTO) {
         Treino treino = new Treino();
-        treino.setTipoTreino(treinoRegisterDTO.tipoTreino());
-        treino.setTrocaTreino(treinoRegisterDTO.trocaTreino());
-        treino.setObservacao(treinoRegisterDTO.observacao());
+        //treino.setTipoTreino(treinoRegisterDTO.tipoTreino());
+        //treino.setTrocaTreino(treinoRegisterDTO.trocaTreino());
+        //treino.setObservacao(treinoRegisterDTO.observacao());
         return treino;
     }
 }

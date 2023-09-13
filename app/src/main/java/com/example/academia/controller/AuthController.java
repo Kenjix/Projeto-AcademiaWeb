@@ -1,10 +1,10 @@
 package com.example.academia.controller;
 
+import com.example.academia.enuns.UserRole;
+import com.example.academia.exceptions.EmailExistsException;
 import com.example.academia.model.DTO.AuthDTO;
 import com.example.academia.model.DTO.LoginResponseDTO;
 import com.example.academia.model.DTO.UserRegisterDTO;
-import com.example.academia.enuns.UserRole;
-import com.example.academia.exceptions.EmailExistsException;
 import com.example.academia.model.User;
 import com.example.academia.repository.UserRepository;
 import com.example.academia.services.MatriculaService;

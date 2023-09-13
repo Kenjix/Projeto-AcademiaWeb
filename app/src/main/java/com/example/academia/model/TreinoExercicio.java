@@ -10,19 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "treino_exercicio")
 @Entity
 public class TreinoExercicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "treino_id")
-    private Treino treino;
-
-    @ManyToOne
-    @JoinColumn(name = "exercicio_id")
-    private Exercicio exercicio;
 
     @Column(nullable = false)
     private int ordem;
@@ -36,11 +29,11 @@ public class TreinoExercicio {
     @Column(nullable = false)
     private int carga;
 
-    public TreinoExercicio(Exercicio exercicio, int ordem, String series, int repeticao, int carga) {
-        this.exercicio = exercicio;
-        this.ordem = ordem;
-        this.series = series;
-        this.repeticao = repeticao;
-        this.carga = carga;
-    }
+    @ManyToOne
+    @JoinColumn(name = "treino_id")
+    private Treino treino;
+
+    @ManyToOne
+    @JoinColumn(name = "exercicio_id")
+    private Exercicio exercicio;
 }

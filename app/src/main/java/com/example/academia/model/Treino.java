@@ -13,8 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "treinos")
 public class Treino {
     @Id
@@ -40,7 +38,7 @@ public class Treino {
     }
 
     @OneToMany(mappedBy = "treino", cascade = CascadeType.ALL)
-    private List<TreinoExercicio> detalhesExercicios;
+    private List<TreinoExercicio> treinoExercicios;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
