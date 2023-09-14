@@ -1,7 +1,6 @@
 package com.example.academia.model.DTO;
 
 import com.example.academia.model.ExerciciosHolder;
-import com.example.academia.model.TreinoExercicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;

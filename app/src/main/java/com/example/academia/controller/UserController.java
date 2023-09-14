@@ -50,7 +50,7 @@ public class UserController {
             User user = dao.findByEmail(authentication.getName());
             byte[] foto = user.getFoto();
             if (foto != null && foto.length > 0) {
-                foto = imageService.decompressImage(foto);
+                foto = ImageService.decompressImage(foto);
                 String imagemBase64 = Base64.getEncoder().encodeToString(foto);
                 model.addAttribute("imagemBase64", imagemBase64);
             } else {
@@ -68,7 +68,7 @@ public class UserController {
         if (authentication.isAuthenticated()) {
             User user = dao.findByEmail(authentication.getName());
             if (user.getFoto() != null && user.getFoto().length > 0) {
-                byte[] foto = imageService.decompressImage(user.getFoto());
+                byte[] foto = ImageService.decompressImage(user.getFoto());
                 String imagemBase64 = Base64.getEncoder().encodeToString(foto);
                 model.addAttribute("imagemBase64", imagemBase64);
             } else {
@@ -90,7 +90,7 @@ public class UserController {
                 }
                 if (foto != null && !foto.isEmpty()) {
                     byte[] resizedImage = imageService.resizeImage(foto, 200, 200);
-                    byte[] compressedImage = imageService.compressImage(resizedImage);
+                    byte[] compressedImage = ImageService.compressImage(resizedImage);
                     user.setFoto(compressedImage);
                 }
                 user.setNome(data.nome());
