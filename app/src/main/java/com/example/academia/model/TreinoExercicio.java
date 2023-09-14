@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,6 +30,20 @@ public class TreinoExercicio {
 
     @Column(nullable = false)
     private int carga;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @PrePersist
+    private void onCreate() {
+        created = new Date();
+        updated = new Date();
+    }
 
     @ManyToOne
     @JoinColumn(name = "treino_id")

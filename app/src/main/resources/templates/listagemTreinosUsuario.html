@@ -12,37 +12,40 @@
     <h3 class="my-4">Lista de Treinos</h3>
     <a th:href="@{/treino/cadastrar}"><button type="button" class="btn btn-success">Criar novo treino</button></a>
   </div>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead class="table-dark">
-      <tr>
-        <th class="text-center align-middle">Tipo de Treino</th>
-        <th class="text-center align-middle">Ordem</th>
-        <th class="text-center align-middle">Exercícios</th>
-        <th class="text-center align-middle">Séries</th>
-        <th class="text-center align-middle">Repetição</th>
-        <th class="text-center align-middle">Carga</th>
-        <th class="text-center align-middle">Troca de Treino</th>
-        <th class="text-center align-middle">Observação</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="treino : ${treinos}">
-        <td class="text-center align-middle" th:text="${treino.tipoTreino}"></td>
-        <td class="text-center align-middle" th:text="${treino.ordem}"></td>
-        <td>
-          <ul>
-            <li th:each="exercicio : ${treino.exercicios}" th:text="${exercicio.nome}"></li>
-          </ul>
-        </td>
-        <td class="text-center align-middle" th:text="${treino.series}"></td>
-        <td class="text-center align-middle" th:text="${treino.repeticao}"></td>
-        <td class="text-center align-middle" th:text="${treino.carga}"></td>
-        <td class="text-center align-middle" th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
-        <td class="text-center align-middle" th:text="${treino.observacao}"></td>
-      </tr>
-      </tbody>
-    </table>
+  <div th:if="${not #lists.isEmpty(treinos)}">
+    <div th:each="treino : ${treinos}">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+          <tr>
+            <th class="text-center align-middle col-2">Tipo de Treino</th>
+            <th class="text-center align-middle col-2">Exercício</th>
+            <th class="text-center align-middle col-1">Ordem</th>
+            <th class="text-center align-middle col-1">Séries</th>
+            <th class="text-center align-middle col-1">Repetição</th>
+            <th class="text-center align-middle col-2">Carga</th>
+            <th class="text-center align-middle text-nowrap col-1">Previsão de Troca</th>
+            <th class="text-center align-middle col-2">Observação</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="exercicio : ${treino.treinoExercicios}">
+            <td th:if="${exercicioStat.first}" rowspan="100" class="text-center align-middle" th:text="${treino.tipoTreino}"></td>
+            <td class="text-center align-middle col-2" th:text="${exercicio.exercicio.nome}"></td>
+            <td class="text-center align-middle col-1" th:text="${exercicio.ordem + 'º'}"></td>
+            <td class="text-center align-middle col-1" th:text="${exercicio.series}"></td>
+            <td class="text-center align-middle col-1" th:text="${exercicio.repeticao + ' vezes'}"></td>
+            <td class="text-center align-middle col-2" th:text="${exercicio.carga + ' kilos'}"></td>
+            <td th:if="${exercicioStat.first}" rowspan="100" class="text-center align-middle" th:text="${#dates.format(treino.trocaTreino, 'dd/MM/yyyy')}"></td>
+            <td th:if="${exercicioStat.first}" rowspan="100" class="text-center align-middle" th:text="${treino.observacao}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="text-center align-middle" th:unless="${not #lists.isEmpty(treinos)}">
+    <h4>Não há treinos cadastrados.</h4>
   </div>
 </div>
 </body>

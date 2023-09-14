@@ -13,26 +13,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/treino")
 public class TreinoController {
-
     private final TreinoRepository treinoRepository;
     private final UserRepository userRepository;
     private final ExercicioRepository exercicioRepository;
     private final TreinoExercicioRepository treinoExercicioRepository;
 
     @Autowired
-    public TreinoController(TreinoRepository treinoRepository, UserRepository userRepository, ExercicioRepository exercicioRepository, TreinoExercicioRepository treinoExercicioRepository) {
+    public TreinoController(TreinoRepository treinoRepository,
+                            UserRepository userRepository,
+                            ExercicioRepository exercicioRepository,
+                            TreinoExercicioRepository treinoExercicioRepository) {
         this.treinoRepository = treinoRepository;
         this.userRepository = userRepository;
         this.exercicioRepository = exercicioRepository;
         this.treinoExercicioRepository = treinoExercicioRepository;
     }
-
     @GetMapping("/cadastrar")
     public String exibirFormCadastroTreino(Model model) {
         List<Exercicio> exercicios = exercicioRepository.findAll();
@@ -77,8 +78,33 @@ public class TreinoController {
         }
         return treinoExercicios;
     }
+    @GetMapping("/meustreinos")
+    public String buscarTreinosPorUsuario(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            User user = userRepository.findByEmail(authentication.getName());
+            List<Treino> treinos = user.getTreinos();
+            //ordena os treinos por data de updated
+            treinos.sort((treino1, treino2) -> {
+                Optional<Date> dataMaisRecente1 = treino1.getTreinoExercicios().stream()
+                        .map(TreinoExercicio::getUpdated)
+                        .max(Date::compareTo);
+                Optional<Date> dataMaisRecente2 = treino2.getTreinoExercicios().stream()
+                        .map(TreinoExercicio::getUpdated)
+                        .max(Date::compareTo);
+
+                int resultadoComparacao = dataMaisRecente2.orElse(new Date()).compareTo(dataMaisRecente1.orElse(new Date()));
+                return resultadoComparacao;
+            });
+            //ordena novamente os treinos pelo atributo ordem
+            treinos.forEach(treino -> treino.getTreinoExercicios().sort(Comparator.comparingInt(TreinoExercicio::getOrdem)));
+            model.addAttribute("treinos", treinos);
+        }
+        return "listagemTreinosUsuario";
+    }
 
 
+    //TODO: implementar
     @GetMapping("/editar/{id}")
     public String editarTreino(@PathVariable Long id, Model model) {
         Treino treino = treinoRepository.findById(id).orElse(null);
@@ -93,7 +119,7 @@ public class TreinoController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.isAuthenticated()) {
             User user = userRepository.findByEmail(authentication.getName());
-            Treino treino = convertDTOToTreino(treinoRegisterDTO);
+            Treino treino = new Treino();
             treino.setUser(user);
             treinoRepository.save(treino);
             return "redirect:/treino/buscarPorUsuario/{userId}";
@@ -105,24 +131,5 @@ public class TreinoController {
     public String excluirTreino(@PathVariable Long id) {
         treinoRepository.deleteById(id);
         return "redirect:/treino/buscarPorUsuario/{userId}";
-    }
-
-    @GetMapping("/meustreinos")
-    public String buscarTreinosPorUsuario(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated()) {
-            User user = userRepository.findByEmail(authentication.getName());
-            List<Treino> treinos = treinoRepository.findByUserId(user.getId());
-            model.addAttribute("treinos", treinos);
-        }
-        return "listagemTreinosUsuario";
-    }
-
-    private Treino convertDTOToTreino(TreinoRegisterDTO treinoRegisterDTO) {
-        Treino treino = new Treino();
-        //treino.setTipoTreino(treinoRegisterDTO.tipoTreino());
-        //treino.setTrocaTreino(treinoRegisterDTO.trocaTreino());
-        //treino.setObservacao(treinoRegisterDTO.observacao());
-        return treino;
     }
 }
