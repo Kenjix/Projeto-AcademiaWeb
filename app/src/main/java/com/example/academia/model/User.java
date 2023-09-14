@@ -1,6 +1,7 @@
 package com.example.academia.model;
 
 import com.example.academia.enuns.UserRole;
+import com.example.academia.model.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -112,6 +113,17 @@ public class User implements UserDetails {
         this.nome = nome;
         this.celular = celular;
         this.dataNasc = dataNasc;
+    }
+
+    public UserDTO toDTO() {
+        UserDTO dto = new UserDTO();
+        dto.setId(this.id);
+        dto.setNome(this.nome);
+        dto.setCpf(this.cpf);
+        dto.setMatricula(this.matricula);
+        dto.setEmail(this.email);
+        dto.setCelular(this.celular);
+        return dto;
     }
 
     @Override

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" th:replace="~{template :: layout(~{::body})}">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,6 +30,47 @@
         }
     </style>
 </head>
+<header>
+    <nav>
+        <div class="mt-2 mb-2 d-inline d-flex justify-content-between no-print">
+            <div class="mt-2 mb-2 d-inline d-flex justify-content-between no-print">
+                <div class="d-flex align-items-center mx-2">
+                    <a th:href="@{/}">
+                        <strong class="d-inline-block mb-2 text-primary-emphasis">
+                            <img th:src="@{/images/icone.png}" width="20">&nbsp;GymGenius
+                        </strong>
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/cliente/cadastrar"><strong>CADASTRO</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/cliente/listar"><strong>LISTAR</strong></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex">
+                <li class="nav-item dropdown list-unstyled">
+                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle bi-3x mx-5" style="font-size: 32px;"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/usuario/perfil}">Meu Perfil</a></li>
+                        <li><a class="dropdown-item" th:href="@{/treino/cadastrar}">Cadastrar treino</a></li>
+                        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"><a class="dropdown-item"
+                                                                                               th:href="@{/admin/gerenciamento}">Gerenciamento</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </nav>
+</header>
 <body>
 <div class="container">
     <div class="row">

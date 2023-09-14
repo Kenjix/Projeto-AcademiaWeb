@@ -1,5 +1,6 @@
 package com.example.academia.controller;
 
+import com.example.academia.model.DTO.UserDTO;
 import com.example.academia.model.User;
 import com.example.academia.repository.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -31,9 +33,13 @@ public class AdminController {
     }
     @GetMapping("/clientes/inativos")
     @ResponseBody
-    public List<User> findInactiveUsers() {
+    public List<UserDTO> findInactiveUsers() {
         try {
-            return userRepository.findByInativoAndRole();
+            List<User> inactiveUsers = userRepository.findByInativoAndRole();
+            List<UserDTO> inactiveUserDTOs = inactiveUsers.stream()
+                    .map(User::toDTO) // Converter User para UserDTO
+                    .collect(Collectors.toList());
+            return inactiveUserDTOs;
         } catch (Exception e) {
             System.out.println("ERRO: " + e.getMessage());
             return null;
@@ -41,9 +47,13 @@ public class AdminController {
     }
     @GetMapping("/clientes/ativos")
     @ResponseBody
-    public List<User> findActiveUsers() {
+    public List<UserDTO> findActiveUsers() {
         try {
-            return userRepository.findByAtivoAndRole();
+            List<User> activeUsers = userRepository.findByAtivoAndRole();
+            List<UserDTO> activeUserDTOs = activeUsers.stream()
+                    .map(User::toDTO) // Converter User para UserDTO
+                    .collect(Collectors.toList());
+            return activeUserDTOs;
         } catch (Exception e) {
             System.out.println("ERRO: " + e.getMessage());
             return null;
